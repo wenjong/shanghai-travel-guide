@@ -270,23 +270,21 @@
         border-left-color: var(--clay-orange) !important;
       }
 
-      /* 03 行程表時間軸在手機端的緊湊排版 */
+      /* 03 行程表時間軸在手機端徹底隱藏左側虛線與圓形指針，以釋放 100% 橫向寬度 */
       .wix-timeline {
-        padding-left: 1.25rem;
-        margin: 2rem 0 2rem 0.25rem;
+        padding-left: 0 !important;
+        margin: 1.5rem 0 !important;
+        border-left: none !important;
       }
 
       .timeline-day-card {
-        padding: 1.5rem 1.25rem;
-        margin-bottom: 1.75rem;
-        border-radius: 14px;
+        padding: 1.5rem 1.25rem !important;
+        margin-bottom: 1.5rem !important;
+        border-radius: 14px !important;
       }
 
       .timeline-day-card::before {
-        left: -2.25rem;
-        width: 26px;
-        height: 26px;
-        font-size: 0.9rem;
+        display: none !important; /* 隱藏圓形指針 */
       }
 
       /* 讓表格在手機端自動化為垂直資訊卡片，防止破碎折行與亂版 */
