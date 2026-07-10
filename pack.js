@@ -56,6 +56,37 @@ pages.forEach(page => {
   const markdownContent = fs.readFileSync(srcPath, 'utf8');
   let pageHtml = marked.parse(markdownContent);
 
+  // Wix 畫冊與卡片風格 DOM 重塑與包裝演算法
+  if (page.key === 'index') {
+    let processedHero = pageHtml.replace(/<h2([^>]*)>/g, '<!-- HERO_SPLIT --><h2$1>');
+    let heroParts = processedHero.split('<!-- HERO_SPLIT -->');
+    let finalHero = `<section class="wix-section-card hero-section">${heroParts[0]}</section>`;
+    for (let i = 1; i < heroParts.length; i++) {
+      finalHero += `<section class="wix-section-card">${heroParts[i]}</section>`;
+    }
+    pageHtml = finalHero;
+  } else if (page.key === '03') {
+    let processedDay = pageHtml.replace(/<h3([^>]*)>/g, '<!-- DAY_SPLIT --><h3$1>');
+    let dayParts = processedDay.split('<!-- DAY_SPLIT -->');
+    let finalItinerary = dayParts[0];
+    for (let i = 1; i < dayParts.length; i++) {
+      finalItinerary += `<div class="timeline-day-card">${dayParts[i]}</div>`;
+    }
+    pageHtml = finalItinerary.replace('<div class="timeline-day-card">', '<div class="wix-timeline"><div class="timeline-day-card">');
+    if (dayParts.length > 1) {
+      pageHtml += '</div>';
+    }
+    pageHtml = pageHtml.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>([\s\S]*?)(?=(<h2|<div class="wix-timeline"|$))/g, '<section class="wix-section-card"><h2$1>$2</h2>$3</section>');
+  } else {
+    let processed = pageHtml.replace(/<h2([^>]*)>/g, '<!-- SECTION_SPLIT --><h2$1>');
+    let parts = processed.split('<!-- SECTION_SPLIT -->');
+    let wrappedHtml = parts[0];
+    for (let i = 1; i < parts.length; i++) {
+      wrappedHtml += `<section class="wix-section-card">${parts[i]}</section>`;
+    }
+    pageHtml = wrappedHtml;
+  }
+
   // 將內部跳轉的 .md 或 .html 連結改寫為 JavaScript 點擊事件，以便在單一 HTML 下流暢切換
   // 匹配 file:/// 絕對路徑與相對路徑
   pageHtml = pageHtml.replace(/href="file:\/\/\/[^"]+\/([^\/]+)\.md(#([^"]+))?"/g, 'href="#" onclick="switchPage(\'$1\', event)"');

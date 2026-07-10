@@ -49,6 +49,37 @@ pages.forEach(page => {
   // 將 Markdown 轉成 HTML
   let mainContentHtml = marked.parse(markdownContent);
 
+  // Wix 畫冊與卡片風格 DOM 重塑與包裝演算法
+  if (page.key === 'index') {
+    let processedHero = mainContentHtml.replace(/<h2([^>]*)>/g, '<!-- HERO_SPLIT --><h2$1>');
+    let heroParts = processedHero.split('<!-- HERO_SPLIT -->');
+    let finalHero = `<section class="wix-section-card hero-section">${heroParts[0]}</section>`;
+    for (let i = 1; i < heroParts.length; i++) {
+      finalHero += `<section class="wix-section-card">${heroParts[i]}</section>`;
+    }
+    mainContentHtml = finalHero;
+  } else if (page.key === '03') {
+    let processedDay = mainContentHtml.replace(/<h3([^>]*)>/g, '<!-- DAY_SPLIT --><h3$1>');
+    let dayParts = processedDay.split('<!-- DAY_SPLIT -->');
+    let finalItinerary = dayParts[0];
+    for (let i = 1; i < dayParts.length; i++) {
+      finalItinerary += `<div class="timeline-day-card">${dayParts[i]}</div>`;
+    }
+    mainContentHtml = finalItinerary.replace('<div class="timeline-day-card">', '<div class="wix-timeline"><div class="timeline-day-card">');
+    if (dayParts.length > 1) {
+      mainContentHtml += '</div>';
+    }
+    mainContentHtml = mainContentHtml.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>([\s\S]*?)(?=(<h2|<div class="wix-timeline"|$))/g, '<section class="wix-section-card"><h2$1>$2</h2>$3</section>');
+  } else {
+    let processed = mainContentHtml.replace(/<h2([^>]*)>/g, '<!-- SECTION_SPLIT --><h2$1>');
+    let parts = processed.split('<!-- SECTION_SPLIT -->');
+    let wrappedHtml = parts[0];
+    for (let i = 1; i < parts.length; i++) {
+      wrappedHtml += `<section class="wix-section-card">${parts[i]}</section>`;
+    }
+    mainContentHtml = wrappedHtml;
+  }
+
   // 核心轉換邏輯：將 Markdown 格式的本機 file:/// 連結與相對 .md 連結，自動改寫為 HTML 連結
   // 例如：[README.md](file:///C:/Users/.../README.md) 或是 [README.md](README.md)
   // 將所有 href 屬性中的 .md 結尾與帶有 file:/// 的 .md 全部更換為本機離線 .html 連結
