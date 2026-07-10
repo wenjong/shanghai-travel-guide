@@ -264,6 +264,60 @@
         height: 26px;
         font-size: 0.9rem;
       }
+
+      /* 讓表格在手機端自動化為垂直資訊卡片，防止破碎折行與亂版 */
+      table {
+        border: none !important;
+        margin: 1.5rem 0 !important;
+      }
+
+      thead {
+        display: none !important; /* 隱藏表頭 */
+      }
+
+      tr {
+        display: block !important;
+        background: #ffffff !important;
+        border: 1px solid var(--glass-border) !important;
+        border-radius: 12px !important;
+        padding: 1.25rem !important;
+        margin-bottom: 1.5rem !important;
+        box-shadow: 0 4px 15px rgba(70, 61, 54, 0.04) !important;
+      }
+
+      td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        text-align: right !important;
+        padding: 0.75rem 0 !important;
+        border: none !important;
+        border-bottom: 1px dashed rgba(27, 48, 36, 0.08) !important;
+        font-size: 0.9rem !important;
+      }
+
+      td:last-child {
+        border-bottom: none !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+      }
+
+      /* 利用 data-label 屬性動態產生欄位標記 */
+      td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--forest-green);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+        text-align: left;
+      }
+
+      td:last-child::before {
+        margin-bottom: 0.4rem;
+      }
     }
 
     /* Wix 畫冊與卡片重構樣式 */
@@ -527,6 +581,26 @@
         navbar.classList.remove('open');
       }
     });
+
+    // 動態為表格加上 data-label 屬性以支援手機端卡片化排版
+    const initResponsiveTables = () => {
+      document.querySelectorAll('table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(tr => {
+          tr.querySelectorAll('td').forEach((td, index) => {
+            if (headers[index]) {
+              td.setAttribute('data-label', headers[index]);
+            }
+          });
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initResponsiveTables);
+    } else {
+      initResponsiveTables();
+    }
   </script>
 </body>
 </html>
