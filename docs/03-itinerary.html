@@ -205,15 +205,64 @@
       }
 
       #container {
-        padding: 2rem 1rem;
+        padding: 1.5rem 0.5rem;
       }
 
       .content-card {
-        padding: 2.5rem 1.5rem;
-        border-radius: 16px;
+        padding: 0;
+        border-radius: 0;
         background: transparent;
         border: none;
         box-shadow: none;
+      }
+
+      /* 針對手機端優化 wix-section-card 內邊距與圓角 */
+      .wix-section-card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 14px;
+        margin-bottom: 1.5rem;
+      }
+
+      /* 縮小手機端標題與內文字體，確保極致的閱讀密度 */
+      h1 {
+        font-size: 1.45rem !important;
+        margin-bottom: 1.2rem;
+        line-height: 1.4;
+      }
+
+      h2 {
+        font-size: 1.25rem !important;
+        margin-top: 1.8rem;
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.05rem !important;
+      }
+
+      p, li {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+        color: #3f3732;
+      }
+
+      /* 03 行程表時間軸在手機端的緊湊排版 */
+      .wix-timeline {
+        padding-left: 1.25rem;
+        margin: 2rem 0 2rem 0.25rem;
+      }
+
+      .timeline-day-card {
+        padding: 1.5rem 1.25rem;
+        margin-bottom: 1.75rem;
+        border-radius: 14px;
+      }
+
+      .timeline-day-card::before {
+        left: -2.25rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.9rem;
       }
     }
 
