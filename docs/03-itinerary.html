@@ -246,6 +246,30 @@
         color: #3f3732;
       }
 
+      /* 全網頁手機版清爽度優化：限制圖片高度與縮減列表/提示間距 */
+      img {
+        max-height: 250px !important;
+        width: 100% !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+      }
+
+      ul, ol {
+        padding-left: 1.25rem !important;
+        margin-bottom: 1rem !important;
+      }
+
+      blockquote {
+        padding: 1rem 1.25rem !important;
+        margin: 1.5rem 0 !important;
+        border-left-width: 4px !important;
+        font-size: 0.9rem !important;
+        border-radius: 4px !important;
+        background: rgba(194, 65, 12, 0.03) !important;
+        border-left-color: var(--clay-orange) !important;
+      }
+
       /* 03 行程表時間軸在手機端的緊湊排版 */
       .wix-timeline {
         padding-left: 1.25rem;
@@ -428,6 +452,17 @@
 </head>
 <body>
 
+  <!-- 密碼驗證覆蓋層 (保護旅行隱私) -->
+  <div id="passwordOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#eae6df; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; font-family:'Outfit', sans-serif;">
+    <div style="background:#ffffff; border:1px solid rgba(27, 48, 36, 0.08); border-radius:18px; padding:3rem 2rem; max-width:400px; width:100%; text-align:center; box-shadow:0 10px 40px rgba(70, 61, 54, 0.07);">
+      <h2 style="font-family:'Cinzel', serif; font-weight:800; color:#1b3024; margin-bottom:0.5rem; font-size:1.6rem;">Shanghai Guide</h2>
+      <p style="font-size:0.85rem; color:#5c5550; margin-bottom:2rem; letter-spacing:0.5px;">請輸入存取密碼以驗證身分</p>
+      <input type="password" id="pwInput" placeholder="請輸入密碼" style="width:100%; padding:0.8rem 1.2rem; border-radius:8px; border:1px solid #e5dfd3; font-size:1rem; margin-bottom:1.5rem; outline:none; text-align:center; box-sizing:border-box;">
+      <button id="pwBtn" style="width:100%; padding:0.8rem; background:#1b3024; border:none; border-radius:8px; color:#ffffff; font-size:1.05rem; font-weight:600; cursor:pointer; transition:all 0.2s;">驗證解鎖</button>
+      <p id="pwError" style="color:#c2410c; font-size:0.85rem; margin-top:1.2rem; display:none; font-weight:500;">⚠️ 密碼錯誤，請重新輸入</p>
+    </div>
+  </div>
+
   <!-- 置頂毛玻璃導覽列 -->
   <header>
     <div class="header-logo">
@@ -596,10 +631,45 @@
       });
     };
 
+    // 前端簡易密碼驗證系統 (保護旅行隱私)
+    const CORRECT_PASSWORD = "shanghai2026";
+    const overlay = document.getElementById('passwordOverlay');
+    const pwInput = document.getElementById('pwInput');
+    const pwBtn = document.getElementById('pwBtn');
+    const pwError = document.getElementById('pwError');
+
+    const checkAuth = () => {
+      if (localStorage.getItem('shanghai_guide_auth') === 'true') {
+        overlay.style.display = 'none';
+      } else {
+        overlay.style.display = 'flex';
+      }
+    };
+
+    const handleVerify = () => {
+      if (pwInput.value === CORRECT_PASSWORD) {
+        localStorage.setItem('shanghai_guide_auth', 'true');
+        overlay.style.display = 'none';
+      } else {
+        pwError.style.display = 'block';
+        pwInput.value = '';
+        pwInput.focus();
+      }
+    };
+
+    pwBtn.addEventListener('click', handleVerify);
+    pwInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleVerify();
+    });
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initResponsiveTables);
+      document.addEventListener('DOMContentLoaded', () => {
+        initResponsiveTables();
+        checkAuth();
+      });
     } else {
       initResponsiveTables();
+      checkAuth();
     }
   </script>
 </body>
