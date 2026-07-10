@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行前檢查與避坑 - 上海自由行手冊</title>
+  <style>
+    /* Wix 自然探索與度假風設計系統 */
+    :root {
+      --bg-color: #f7f6f0;         /* 暖米沙色背景 */
+      --card-bg: #ffffff;          /* 純白內容卡片 */
+      --border-color: #e5dfd3;     /* 溫和的淡卡其色邊框 */
+      --text-main: #2d312e;        /* 深墨綠偏黑色文字 */
+      --text-muted: #6b7280;       /* 灰褐色副文字 */
+      --sidebar-bg: #1b3024;       /* 深森林綠側邊欄 */
+      --sidebar-text: #eae6df;     /* 象牙白側邊欄文字 */
+      --sidebar-muted: #8b9d90;    /* 側邊欄淡灰綠文字 */
+      --accent-color: #c2410c;     /* 陶土暖橘色 (Terra Cotta) */
+      --link-color: #0d9488;       /* 湖藍綠色 */
+      --hover-bg: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 佈局架構 */
+    #app {
+      display: flex;
+      width: 100%;
+    }
+
+    /* 響應式側邊欄 */
+    aside {
+      width: 290px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 2.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-title {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--sidebar-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    nav a {
+      color: var(--sidebar-text);
+      text-decoration: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-bg);
+      transform: translateX(3px);
+    }
+
+    nav a.active {
+      color: #1b3024;
+      background-color: #f7f6f0;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 手機頂部導覽列 (預設隱藏) */
+    .mobile-header {
+      display: none;
+      width: 100%;
+      height: 60px;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      padding: 0 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-header .logo-title {
+      font-size: 1.1rem;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* 主要內容區 */
+    main {
+      flex: 1;
+      margin-left: 290px;
+      padding: 4rem 5rem;
+      max-width: 1100px;
+      width: calc(100% - 290px);
+      min-height: 100vh;
+    }
+
+    /* 內頁卡片質感 */
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 3.5rem;
+      box-shadow: 0 4px 24px rgba(27, 48, 36, 0.04);
+    }
+
+    /* Wix 風格排版與美化 */
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      color: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--sidebar-bg);
+      display: flex;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    p {
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 1.75rem;
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a.markdown-link {
+      color: var(--link-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s;
+    }
+
+    a.markdown-link:hover {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+
+    /* 表格樣式優化 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #fcfbfa;
+      color: var(--sidebar-bg);
+      font-weight: 700;
+      font-family: Georgia, serif;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbfbf9;
+    }
+
+    /* 警告方塊 Github-style Alerts 改為溫暖陶土與淡黃色系 */
+    blockquote {
+      background: #fdfaf2;
+      border-left: 4px solid var(--accent-color);
+      padding: 1.25rem 1.75rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.75rem 0;
+    }
+
+    blockquote p {
+      margin-bottom: 0;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* 程式碼與結構樹 */
+    pre {
+      background: #fdfdfd;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      background: #fff8f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #fce8e1;
+    }
+
+    pre code {
+      color: #374151;
+      background: none;
+      padding: 0;
+      border: none;
+    }
+
+    /* 大圖卡片與圓角 (自然風景美學) */
+    img {
+      display: block;
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 16px rgba(27, 48, 36, 0.06);
+      border: 1px solid var(--border-color);
+    }
+
+    /* 頁尾 */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 螢幕響應式設定 */
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column;
+      }
+      
+      aside {
+        transform: translateX(-100%);
+        width: 290px;
+        box-shadow: 8px 0 25px rgba(27, 48, 36, 0.15);
+      }
+
+      aside.open {
+        transform: translateX(0);
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+
+      main {
+        margin-left: 0;
+        margin-top: 60px;
+        padding: 2rem 1.25rem;
+        width: 100%;
+      }
+
+      .content-card {
+        padding: 2rem 1.5rem;
+        border-radius: 8px;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      h2 {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 手機頂部導覽列 -->
+  <div class="mobile-header">
+    <span class="logo-title">上海自由行手冊</span>
+    <button class="menu-toggle" id="menuBtn">☰</button>
+  </div>
+
+  <div id="app">
+    <!-- 側邊導覽欄 -->
+    <aside id="sidebar">
+      <div class="logo-container">
+        <div class="logo-title">上海自由行</div>
+        <div class="logo-subtitle">FAMILY EXPLORATION</div>
+      </div>
+      <nav>
+        <a href="index.html" class="">🏠 首頁與基本資訊</a>
+        <a href="00-pre-travel-checklist.html" class="active">📋 行前檢查與避坑</a>
+        <a href="01-telecom-and-bank.html" class="">💳 聯通門號與富邦開戶</a>
+        <a href="02-attraction-guide.html" class="">🧭 景點導覽與低步行</a>
+        <a href="03-itinerary.html" class="">📅 6天5夜活動行程</a>
+      </nav>
+      <div style="margin-top: auto; font-size: 0.75rem; color: var(--sidebar-muted); text-align: center; letter-spacing: 0.5px;">
+        100% 離線免網手冊
+      </div>
+    </aside>
+
+    <!-- 主要內容展示區 -->
+    <main>
+      <article class="content-card">
+        <h1>上海自由行：行前檢查與安全避坑指南</h1>
+<p>為了確保您與家人在上海的旅程順暢，本指南特別整理了台灣旅客前往大陸最常忽略的行李規定、過關檢疫、交通安檢、行動支付手續費陷阱，以及免翻牆通訊配置。</p>
+<hr>
+<h2>1. 行前行李與個人物品準備</h2>
+<h3>🔋 行動電源（充電寶）攜帶嚴格限制（極重要）</h3>
+<p>大陸民航局與機場安檢對行動電源的限制非常嚴格，不符規定者會於海關安檢時直接沒收：</p>
+<ul>
+<li><strong>標識限制</strong>：行動電源外殼上的容量（單位如 mAh）與額定能量（單位如 Wh）<strong>必須清晰可見</strong>。若因磨損、字跡模糊或無任何標示，不論容量多小，海關一律沒收。</li>
+<li><strong>容量限制</strong>：<ul>
+<li>額定能量在 <strong>100 Wh 以下</strong>（約 27000 mAh，以 3.7 V 電壓換算）：每人限帶 2 顆，不需申報，可直接隨身攜帶。</li>
+<li>額定能量在 <strong>100 Wh 至 160 Wh 之間</strong>：須經航空公司批准後方可攜帶。</li>
+<li>額定能量 <strong>超過 160 Wh</strong>：嚴禁攜帶。</li>
+</ul>
+</li>
+<li><strong>攜帶方式</strong>：<strong>必須隨身攜帶</strong>，絕對禁止放入託運行李。</li>
+</ul>
+<h3>💊 個人常用藥品攜帶規範</h3>
+<ul>
+<li>自用藥品建議保留<strong>完整原廠包裝</strong>與醫師處方箋（如有），以便海關查驗。</li>
+<li>避坑提示：避免攜帶過多含有「麻黃鹼」（如部分強效感冒藥）、或「複方甘草片」等成分的藥物，這類藥物在大陸海關屬管制成分，大劑量攜帶可能會被盤查。</li>
+</ul>
+<hr>
+<h2>2. 出入境過關與申報注意事項</h2>
+<h3>🛂 證件效期確認</h3>
+<ul>
+<li>出發前務必確認**台胞證（卡式）**在有效期限內。</li>
+<li>開立銀行帳戶需要使用「台灣身分證」做為輔助證明證件，請務必隨身攜帶實體身分證，勿僅帶台胞證。</li>
+</ul>
+<h3>🍎 嚴格禁止攜帶入境之違禁品（兩岸雙向適用）</h3>
+<ul>
+<li><strong>肉類製品</strong>：嚴禁攜帶任何含有肉類的食品（如台灣肉乾、肉鬆、含肉泡麵、肉鬆捲等）入境大陸；回台時亦同（防範非洲豬瘟，回台被查獲會處以新台幣 20 萬元以上罰鍰）。</li>
+<li><strong>新鮮蔬果</strong>：水果、蔬菜、植物種子等嚴禁攜帶通關。</li>
+</ul>
+<hr>
+<h2>3. 大眾交通工具使用細節與安全</h2>
+<h3>🚇 地鐵「逢包必檢」安檢與液體檢測</h3>
+<ul>
+<li><strong>安全檢查</strong>：上海地鐵所有車站均實行嚴格安檢。進站時，凡是隨身背包、手提袋、行李箱均須放上 X 光機傳送帶進行安檢。</li>
+<li><strong>液體檢測</strong>：若手持保溫杯、飲料或水瓶，安檢員會要求將液體放入專屬的液體檢測儀，或要求您現場當面**「喝一口」**以示安全。建議預留進站排隊時間。</li>
+<li><strong>乘車支付</strong>：無需購買實體票卡。出發前於微信或支付寶搜尋**「隨申辦」<strong>或</strong>「上海地鐵乘車碼」**小程序，開通後即可直接以手機條碼掃描進出地鐵與公車。</li>
+</ul>
+<h3>🚗 網約車/計程車上車定位點限制</h3>
+<ul>
+<li>在上海市區，許多主要幹道、高架橋下方或十字路口皆劃有黃線，屬於「禁止臨時停車路段」。</li>
+<li><strong>定位秘訣</strong>：使用高德地圖或滴滴出行叫車時，地圖上會標示綠色的**「推薦上車點（安全停靠點）」**。請務必帶領家人步行至該綠色停靠點等候。若隨意在路邊叫車，司機會因為怕被監視器拍照開罰而拒絕停靠，甚至取消訂單。</li>
+</ul>
+<h3>🚄 浦東機場磁浮列車購票優惠</h3>
+<ul>
+<li>從浦東機場往返市區，若選擇搭乘磁浮列車，可憑<strong>當日紙本機票或電子機票購票證明</strong>，至售票窗口購買普通席單程票，可直接享有 <strong>8 折優惠</strong>（折後 40 元人民幣，原價 50 元）。</li>
+</ul>
+<hr>
+<h2>4. 行動支付 3% 手續費規避方案</h2>
+<p>在大陸使用支付寶或微信支付綁定台灣信用卡時，存在以下手續費規則：</p>
+<ul>
+<li><strong>手續費規則</strong>：<ul>
+<li>單筆消費金額 <strong>小於 200 元人民幣</strong>：免收平台手續費。</li>
+<li>單筆消費金額 <strong>大於或等於 200 元人民幣</strong>：支付寶/微信平台會自動加收 <strong>3% 的海外通道服務費</strong>（此費用與台灣信用卡收取的 1.5% 海外交易手續費是分開累加的）。</li>
+</ul>
+</li>
+<li><strong>規避與避坑方案</strong>：<ul>
+<li><strong>方案 A (拆單支付)</strong>：在同一商家或餐廳消費超過 200 元時，可禮貌詢問商家是否能將帳單拆分為多筆低於 200 元的金額分開支付。</li>
+<li><strong>方案 B (富邦卡扣款)</strong>：在第二天成功開立富邦華一銀行帳戶並存入人民幣後，將該銀行卡綁定至支付寶與微信。消費時選擇由「富邦華一卡（儲蓄卡）」直接扣除人民幣餘額，<strong>完全免除 3% 的平台海外手續費</strong>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>5. 免翻牆雙網路切換策略</h2>
+<p>大陸設有網絡防火牆，一旦使用大陸當地辦理的聯通 SIM 卡行動數據上網，將無法直接連線台灣常用的 Google 地圖、LINE、Facebook、Instagram 等應用程式。</p>
+<h3>💡 最佳雙網路配置策略</h3>
+<p>為了讓全家在大陸能隨時使用台灣社群軟體與地圖，同時又能使用大陸實名手機號收銀行簡訊：</p>
+<ol>
+<li><strong>主力上網卡（免翻牆）</strong>：<ul>
+<li>全家人的手機在台灣出發前，先申請好台灣電信商的大陸漫遊上網方案（例如：中華電信、台灣大哥大之漫遊方案）。</li>
+<li>漫遊數據流量在大陸會直接繞回台灣伺服器，<strong>天生免翻牆</strong>，可自由使用 LINE 與 Google 服務。</li>
+</ul>
+</li>
+<li><strong>大陸實名卡（僅作備用與簡訊接收）</strong>：<ul>
+<li>第一天辦妥的大陸聯通 SIM 卡，放入雙卡手機的副卡槽（SIM 2）。</li>
+<li><strong>在手機設定中，將行動數據指定為 SIM 1 (台灣漫遊卡)</strong>，並將 SIM 2 (大陸卡) 關閉行動數據，僅保留通話與簡訊接收功能。</li>
+<li>這樣既能保證日常通訊免翻牆，又能隨時接收富邦華一銀行發送的交易驗證簡訊。</li>
+</ul>
+</li>
+</ol>
+
+      </article>
+
+      <footer>
+        <p>© 2026 上海自駕與科技探索家庭自由行手冊</p>
+        <p style="margin-top: 0.35rem; font-size: 0.75rem; color: var(--text-muted);">最後更新時間：2026-06-02</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // 手機版側邊欄開關邏輯
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', (e) => {
+      sidebar.classList.toggle('open');
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

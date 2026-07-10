@@ -1,0 +1,19 @@
+{
+  "name": "shanghai-travel-guide",
+  "version": "1.0.0",
+  "description": "本指南為您規劃 2026 年 7 月 19 日至 7 月 24 日的上海自由行基礎設定。為了確保您的旅程在「大陸不翻牆」與「訊號不佳」的環境下依然能順暢閱讀，本指南已被設計為 **100% 離線免聯網網頁結構**，並附帶了行動電子書備份方案。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@lillallol/outline-pdf-cjs": "^1.0.5",
+    "marked": "^18.0.4",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^2.4.5"
+  }
+}

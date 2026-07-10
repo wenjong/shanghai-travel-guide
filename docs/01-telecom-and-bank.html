@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>聯通門號與富邦開戶 - 上海自由行手冊</title>
+  <style>
+    /* Wix 自然探索與度假風設計系統 */
+    :root {
+      --bg-color: #f7f6f0;         /* 暖米沙色背景 */
+      --card-bg: #ffffff;          /* 純白內容卡片 */
+      --border-color: #e5dfd3;     /* 溫和的淡卡其色邊框 */
+      --text-main: #2d312e;        /* 深墨綠偏黑色文字 */
+      --text-muted: #6b7280;       /* 灰褐色副文字 */
+      --sidebar-bg: #1b3024;       /* 深森林綠側邊欄 */
+      --sidebar-text: #eae6df;     /* 象牙白側邊欄文字 */
+      --sidebar-muted: #8b9d90;    /* 側邊欄淡灰綠文字 */
+      --accent-color: #c2410c;     /* 陶土暖橘色 (Terra Cotta) */
+      --link-color: #0d9488;       /* 湖藍綠色 */
+      --hover-bg: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 佈局架構 */
+    #app {
+      display: flex;
+      width: 100%;
+    }
+
+    /* 響應式側邊欄 */
+    aside {
+      width: 290px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 2.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-title {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--sidebar-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    nav a {
+      color: var(--sidebar-text);
+      text-decoration: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-bg);
+      transform: translateX(3px);
+    }
+
+    nav a.active {
+      color: #1b3024;
+      background-color: #f7f6f0;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 手機頂部導覽列 (預設隱藏) */
+    .mobile-header {
+      display: none;
+      width: 100%;
+      height: 60px;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      padding: 0 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-header .logo-title {
+      font-size: 1.1rem;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* 主要內容區 */
+    main {
+      flex: 1;
+      margin-left: 290px;
+      padding: 4rem 5rem;
+      max-width: 1100px;
+      width: calc(100% - 290px);
+      min-height: 100vh;
+    }
+
+    /* 內頁卡片質感 */
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 3.5rem;
+      box-shadow: 0 4px 24px rgba(27, 48, 36, 0.04);
+    }
+
+    /* Wix 風格排版與美化 */
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      color: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--sidebar-bg);
+      display: flex;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    p {
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 1.75rem;
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a.markdown-link {
+      color: var(--link-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s;
+    }
+
+    a.markdown-link:hover {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+
+    /* 表格樣式優化 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #fcfbfa;
+      color: var(--sidebar-bg);
+      font-weight: 700;
+      font-family: Georgia, serif;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbfbf9;
+    }
+
+    /* 警告方塊 Github-style Alerts 改為溫暖陶土與淡黃色系 */
+    blockquote {
+      background: #fdfaf2;
+      border-left: 4px solid var(--accent-color);
+      padding: 1.25rem 1.75rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.75rem 0;
+    }
+
+    blockquote p {
+      margin-bottom: 0;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* 程式碼與結構樹 */
+    pre {
+      background: #fdfdfd;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      background: #fff8f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #fce8e1;
+    }
+
+    pre code {
+      color: #374151;
+      background: none;
+      padding: 0;
+      border: none;
+    }
+
+    /* 大圖卡片與圓角 (自然風景美學) */
+    img {
+      display: block;
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 16px rgba(27, 48, 36, 0.06);
+      border: 1px solid var(--border-color);
+    }
+
+    /* 頁尾 */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 螢幕響應式設定 */
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column;
+      }
+      
+      aside {
+        transform: translateX(-100%);
+        width: 290px;
+        box-shadow: 8px 0 25px rgba(27, 48, 36, 0.15);
+      }
+
+      aside.open {
+        transform: translateX(0);
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+
+      main {
+        margin-left: 0;
+        margin-top: 60px;
+        padding: 2rem 1.25rem;
+        width: 100%;
+      }
+
+      .content-card {
+        padding: 2rem 1.5rem;
+        border-radius: 8px;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      h2 {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 手機頂部導覽列 -->
+  <div class="mobile-header">
+    <span class="logo-title">上海自由行手冊</span>
+    <button class="menu-toggle" id="menuBtn">☰</button>
+  </div>
+
+  <div id="app">
+    <!-- 側邊導覽欄 -->
+    <aside id="sidebar">
+      <div class="logo-container">
+        <div class="logo-title">上海自由行</div>
+        <div class="logo-subtitle">FAMILY EXPLORATION</div>
+      </div>
+      <nav>
+        <a href="index.html" class="">🏠 首頁與基本資訊</a>
+        <a href="00-pre-travel-checklist.html" class="">📋 行前檢查與避坑</a>
+        <a href="01-telecom-and-bank.html" class="active">💳 聯通門號與富邦開戶</a>
+        <a href="02-attraction-guide.html" class="">🧭 景點導覽與低步行</a>
+        <a href="03-itinerary.html" class="">📅 6天5夜活動行程</a>
+      </nav>
+      <div style="margin-top: auto; font-size: 0.75rem; color: var(--sidebar-muted); text-align: center; letter-spacing: 0.5px;">
+        100% 離線免網手冊
+      </div>
+    </aside>
+
+    <!-- 主要內容展示區 -->
+    <main>
+      <article class="content-card">
+        <h1>手機門號辦理與銀行開戶實戰手冊 (2025-2026 最新版)</h1>
+<p>本指南為您規劃最省時、高成功率的手機門號辦理與富邦華一銀行開戶流程，以便於綁定支付寶與微信支付付款。</p>
+<hr>
+<h2>任務一：申辦大陸手機實名門號 (第一天：7/19 週日 下午)</h2>
+<p>辦理銀行開戶前，必須先擁有一個本人台胞證實名認證的大陸門號，用來接收銀行簡訊與登入驗證。</p>
+<h3>1. 營業廳選擇與基本資訊</h3>
+<ul>
+<li><strong>推薦門市</strong>：<strong>中國聯通（泰興路營業廳）</strong><ul>
+<li><strong>屬性</strong>：官方直營旗艦營業廳（有權限辦理台胞證實名業務，對港澳台業務熟悉）。</li>
+<li><strong>地址</strong>：上海市靜安區泰興路 201 號（靠近北京西路口）。</li>
+<li><strong>營業時間</strong>：週一至週日 09:00 - 18:00。</li>
+<li><strong>電話</strong>：+86-21-62187688。</li>
+</ul>
+</li>
+</ul>
+<h3>2. 交通路線（低步行）</h3>
+<ul>
+<li><strong>起點</strong>：上海南京西路亞朵 X 酒店（南京西路 698 號）。</li>
+<li><strong>路線</strong>：從酒店出發，向西沿南京西路步行約 350 公尺，至泰興路右轉，再沿泰興路向北直行約 250 公尺，抵達泰興路與北京西路交叉口即可看到營業廳。</li>
+<li><strong>步行距離</strong>：約 600 公尺（單程步行約 8-10 分鐘，地形平坦）。</li>
+</ul>
+<h3>3. 辦理步驟與現場做法</h3>
+<ol>
+<li><strong>攜帶材料</strong>：<ul>
+<li>本人台胞證正本（實體卡）。</li>
+<li>支援雙卡雙待的手機（將主要通訊的台灣 SIM 卡移至 SIM 2，將新辦的大陸 SIM 卡放於 SIM 1，確保能第一時間接收認證簡訊）。</li>
+</ul>
+</li>
+<li><strong>臨櫃要求</strong>：<ul>
+<li>向櫃檯人員表示：「我要辦理新號碼實名登記，使用台胞證。」</li>
+<li>櫃檯通常會推薦高月租費套餐（例如月租 39 元或 59 元人民幣）。由於現場可能不直接受理更改為「8 元保號方案」，建議先接受此月租方案，並存入 100 元人民幣話費。</li>
+</ul>
+</li>
+<li><strong>核心要求（務必當場確認）</strong>：<ul>
+<li><strong>開啟港澳台漫遊/國際漫遊</strong>：向營業員強調「<strong>我回台灣後需要收驗證簡訊</strong>，請幫我開通港澳台漫遊與國際漫遊功能」。</li>
+<li>當場在手機中裝入卡片，確認能收到中國聯通的開通確認簡訊，且手機有收訊格數。</li>
+</ul>
+</li>
+</ol>
+<h3>4. 回台後的「8 元保號套餐」變更技巧</h3>
+<ul>
+<li><strong>管道 A（APP 客服，最推）</strong>：下載「中國聯通」APP ＞ 登入大陸門號 ＞ 點選「我的」 ＞ 「客服」 ＞ 輸入「轉人工客服」 ＞ 告知「我要修改套餐為 8 元流量王/ 8 元保號套餐，下月生效」。</li>
+<li><strong>管道 B（撥打客服）</strong>：在台灣撥打中國聯通大陸客服熱線：<code>+86-21-10010</code> ＞ 轉人工服務 ＞ 表明「我已回台，目前門號僅需保號收驗證碼，請幫我將月租套餐更改為 8 元保號套餐（內含 30 分鐘通話或 200MB 流量，次月生效）」。</li>
+<li><strong>養號維護</strong>：在 APP 內使用儲值功能存入至少 100 元人民幣，以防欠費停機。停機超過 3 個月門號會被銷號，屆時綁定的銀行帳戶將無法解鎖。</li>
+</ul>
+<hr>
+<h2>任務二：富邦華一銀行開戶實戰 (第二天：7/20 週一 上午)</h2>
+<p>富邦華一銀行是目前對台胞開立個人帳戶最友善、審查相對彈性的銀行。</p>
+<h3>1. 營業廳選擇與基本資訊</h3>
+<ul>
+<li><strong>推薦分行</strong>：<strong>富邦華一銀行（上海靜安支行）</strong><ul>
+<li><strong>地址</strong>：上海市靜安區南京西路 1468 號中安廣場 1P01 室（鄰近靜安嘉里中心）。</li>
+<li><strong>營業時間</strong>：週一至週五 09:00 - 17:00，週六 10:00 - 17:00（<strong>週日不營業</strong>）。</li>
+<li><strong>電話</strong>：+86-21-20377688。</li>
+</ul>
+</li>
+</ul>
+<h3>2. 交通路線</h3>
+<ul>
+<li><strong>起點</strong>：上海南京西路亞朵 X 酒店（南京西路 698 號）。</li>
+<li><strong>交通方案 A（地鐵，推薦）</strong>：<ul>
+<li>步行 2 分鐘至地鐵「南京西路站」。</li>
+<li>搭乘地鐵 2 號線（往徐涇東方向），搭乘 1 站至「靜安寺站」下車。</li>
+<li>從 6 號或 8 號出口出站，步行約 3-5 分鐘即可抵達靜安支行。</li>
+</ul>
+</li>
+<li><strong>交通方案 B（網約車）</strong>：<ul>
+<li>直接於酒店門口搭乘滴滴出行，車程約 8-10 分鐘，車資約 15-20 元人民幣。</li>
+</ul>
+</li>
+</ul>
+<h3>3. 開戶材料清單</h3>
+<p>請務必帶齊以下文件：</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>台胞證正本</strong>（需在有效期限內）。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>台灣身分證正本</strong>（在大陸銀行屬必備之第二身分證明）。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>台灣第二證件</strong>（如健保卡或駕照，備用）。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>大陸實名手機門號</strong>（即週日辦妥之聯通號碼，需現場接收驗證簡訊）。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>台灣地址與身分證字號</strong>（做為「稅務識別碼/ TIN」填寫使用）。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>人民幣現金 1000 元</strong>（開戶時銀行通常要求當場存入 500-1000 元人民幣定期存款以提高審查通過機率，可於開卡後直接存入）。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>在陸聯絡地址</strong>：填寫「上海市靜安區南京西路 698 號亞朵 X 酒店」即可。</li>
+</ul>
+<h3>4. 開戶流程與話術指南</h3>
+<ol>
+<li><strong>行前「線上預錄入」</strong>：<ul>
+<li>在週日拿到手機門號後，使用微信搜尋「富邦華一銀行」公眾號。</li>
+<li>進入公眾號選單的「快捷服務」＞「線上預錄入」＞「個人開戶預約」。</li>
+<li>填寫您的個人資料、台胞證號、剛辦妥的大陸手機號、台灣地址、及台灣身分證字號（稅務識別碼）。</li>
+</ul>
+</li>
+<li><strong>臨櫃審查（KYC 盡職調查）應對話術</strong>：<ul>
+<li>行員會詢問開戶目的。<strong>最佳且最安全的回答</strong>：<blockquote>
+<p>「我常在台灣使用淘寶、拼多多等大陸網購平台消費，單筆金額超過 200 元人民幣時，台灣信用卡會被支付寶和微信加收 3% 的平台手續費。我想要開戶來存錢付款以避開這筆 3% 手續費；且這次在上海旅遊也有小額消費與綁定支付寶/微信支付的需求，後續也會持續在大陸網購消費。」</p>
+</blockquote>
+</li>
+<li>此回答合理、真實，且完全契合日常消費需求。</li>
+</ul>
+</li>
+<li><strong>開立帳戶類型與額度限制</strong>：<ul>
+<li>通常會被開立為「<strong>Ⅱ類帳戶</strong>」（非居民個人結算帳戶）。</li>
+<li><strong>限額政策</strong>：新開戶的「非櫃面交易限額」（指微信/支付寶消費、網銀轉帳）通常會被設定為<strong>每日 1000 元至 3000 元人民幣</strong>。這已足夠日常網購使用，<strong>請勿在現場強求行員調高額度</strong>，否則會被要求補件「大陸工作合約」或「完稅證明」，反而導致開戶失敗。</li>
+</ul>
+</li>
+<li><strong>現場綁定與付款測試</strong>：<ul>
+<li>拿到實體卡片並設定好 6 位數密碼後，請行員協助您下載並登入「富邦華一手機銀行 APP」。</li>
+<li>在銀行內立刻開啟您的「微信支付」與「支付寶」，新增綁定這張富邦華一銀行卡。</li>
+<li>現場在附近的便利商店刷卡消費一筆（如買飲料），確認由「富邦華一銀行卡」扣款正常且手續費為 0 元。</li>
+</ul>
+</li>
+</ol>
+<h3>5. 養戶與防止被凍結（在台操作）</h3>
+<ul>
+<li><strong>問題</strong>：若開戶後連續 6 個月無任何資金變動，系統會將帳戶鎖定為「暫停非櫃面交易」，屆時您必須親自飛一趟大陸櫃檯才能解凍。</li>
+<li><strong>解法</strong>：<ol>
+<li>每隔 1-2 個月，在台灣使用支付寶，從小額（如 10 元人民幣）將錢從富邦卡轉入支付寶餘額，或者從支付寶餘額提現至富邦卡。</li>
+<li>在淘寶或拼多多購物時，優先選用這張富邦卡付款，保持帳戶每季至少有 2-3 次的微小資金往來，即可永久維持帳戶活躍。</li>
+</ol>
+</li>
+</ul>
+
+      </article>
+
+      <footer>
+        <p>© 2026 上海自駕與科技探索家庭自由行手冊</p>
+        <p style="margin-top: 0.35rem; font-size: 0.75rem; color: var(--text-muted);">最後更新時間：2026-06-02</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // 手機版側邊欄開關邏輯
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', (e) => {
+      sidebar.classList.toggle('open');
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

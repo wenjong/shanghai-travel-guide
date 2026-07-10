@@ -1,0 +1,5 @@
+node_modules/
+print-to-pdf.html
+shanghai-travel-guide-marked.pdf
+*.log
+.DS_Store

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>景點導覽與低步行 - 上海自由行手冊</title>
+  <style>
+    /* Wix 自然探索與度假風設計系統 */
+    :root {
+      --bg-color: #f7f6f0;         /* 暖米沙色背景 */
+      --card-bg: #ffffff;          /* 純白內容卡片 */
+      --border-color: #e5dfd3;     /* 溫和的淡卡其色邊框 */
+      --text-main: #2d312e;        /* 深墨綠偏黑色文字 */
+      --text-muted: #6b7280;       /* 灰褐色副文字 */
+      --sidebar-bg: #1b3024;       /* 深森林綠側邊欄 */
+      --sidebar-text: #eae6df;     /* 象牙白側邊欄文字 */
+      --sidebar-muted: #8b9d90;    /* 側邊欄淡灰綠文字 */
+      --accent-color: #c2410c;     /* 陶土暖橘色 (Terra Cotta) */
+      --link-color: #0d9488;       /* 湖藍綠色 */
+      --hover-bg: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 佈局架構 */
+    #app {
+      display: flex;
+      width: 100%;
+    }
+
+    /* 響應式側邊欄 */
+    aside {
+      width: 290px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 2.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-title {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--sidebar-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    nav a {
+      color: var(--sidebar-text);
+      text-decoration: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-bg);
+      transform: translateX(3px);
+    }
+
+    nav a.active {
+      color: #1b3024;
+      background-color: #f7f6f0;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 手機頂部導覽列 (預設隱藏) */
+    .mobile-header {
+      display: none;
+      width: 100%;
+      height: 60px;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      padding: 0 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-header .logo-title {
+      font-size: 1.1rem;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* 主要內容區 */
+    main {
+      flex: 1;
+      margin-left: 290px;
+      padding: 4rem 5rem;
+      max-width: 1100px;
+      width: calc(100% - 290px);
+      min-height: 100vh;
+    }
+
+    /* 內頁卡片質感 */
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 3.5rem;
+      box-shadow: 0 4px 24px rgba(27, 48, 36, 0.04);
+    }
+
+    /* Wix 風格排版與美化 */
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      color: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--sidebar-bg);
+      display: flex;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    p {
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 1.75rem;
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a.markdown-link {
+      color: var(--link-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s;
+    }
+
+    a.markdown-link:hover {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+
+    /* 表格樣式優化 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #fcfbfa;
+      color: var(--sidebar-bg);
+      font-weight: 700;
+      font-family: Georgia, serif;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbfbf9;
+    }
+
+    /* 警告方塊 Github-style Alerts 改為溫暖陶土與淡黃色系 */
+    blockquote {
+      background: #fdfaf2;
+      border-left: 4px solid var(--accent-color);
+      padding: 1.25rem 1.75rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.75rem 0;
+    }
+
+    blockquote p {
+      margin-bottom: 0;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* 程式碼與結構樹 */
+    pre {
+      background: #fdfdfd;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      background: #fff8f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #fce8e1;
+    }
+
+    pre code {
+      color: #374151;
+      background: none;
+      padding: 0;
+      border: none;
+    }
+
+    /* 大圖卡片與圓角 (自然風景美學) */
+    img {
+      display: block;
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 16px rgba(27, 48, 36, 0.06);
+      border: 1px solid var(--border-color);
+    }
+
+    /* 頁尾 */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 螢幕響應式設定 */
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column;
+      }
+      
+      aside {
+        transform: translateX(-100%);
+        width: 290px;
+        box-shadow: 8px 0 25px rgba(27, 48, 36, 0.15);
+      }
+
+      aside.open {
+        transform: translateX(0);
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+
+      main {
+        margin-left: 0;
+        margin-top: 60px;
+        padding: 2rem 1.25rem;
+        width: 100%;
+      }
+
+      .content-card {
+        padding: 2rem 1.5rem;
+        border-radius: 8px;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      h2 {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 手機頂部導覽列 -->
+  <div class="mobile-header">
+    <span class="logo-title">上海自由行手冊</span>
+    <button class="menu-toggle" id="menuBtn">☰</button>
+  </div>
+
+  <div id="app">
+    <!-- 側邊導覽欄 -->
+    <aside id="sidebar">
+      <div class="logo-container">
+        <div class="logo-title">上海自由行</div>
+        <div class="logo-subtitle">FAMILY EXPLORATION</div>
+      </div>
+      <nav>
+        <a href="index.html" class="">🏠 首頁與基本資訊</a>
+        <a href="00-pre-travel-checklist.html" class="">📋 行前檢查與避坑</a>
+        <a href="01-telecom-and-bank.html" class="">💳 聯通門號與富邦開戶</a>
+        <a href="02-attraction-guide.html" class="active">🧭 景點導覽與低步行</a>
+        <a href="03-itinerary.html" class="">📅 6天5夜活動行程</a>
+      </nav>
+      <div style="margin-top: auto; font-size: 0.75rem; color: var(--sidebar-muted); text-align: center; letter-spacing: 0.5px;">
+        100% 離線免網手冊
+      </div>
+    </aside>
+
+    <!-- 主要內容展示區 -->
+    <main>
+      <article class="content-card">
+        <h1>上海熱門景點深度導覽與低步行逛法</h1>
+<p>本指南為全家人設計了適度步行、動線流暢的景點導覽方案，並融入了 <strong>2026 年世界人工智慧大會 (WAIC 2026)</strong> 的參展指引，讓旅程舒適又充實。</p>
+<hr>
+<h2>1. 經典人文與江景：豫園 ＋ 外灘</h2>
+<p>本區帶您感受上海的歷史底蘊與現代繁華。</p>
+<h3>導覽與逛法</h3>
+<ul>
+<li><p><strong>第一站：豫園（古典園林）</strong></p>
+<ul>
+<li><strong>如何逛</strong>：建議下午 15:30 抵達。避開外圍擁擠且步行距離長的豫園老街小商品市場，直接購買門票（門票約 30 - 40 元人民幣，可在大眾點評 APP 預購）進入豫園核心園區。園內為江南林園精華，亭台樓閣緊湊，步行距離僅約 800 公尺。重點參觀「九曲橋」、「玉玲瓏」（江南三大名石之一）與「三穗堂」。</li>
+<li><strong>適度步行秘訣</strong>：園內多設有連廊與靠椅，可隨時歇息欣賞錦鯉，觀賞石雕與古建築。</li>
+</ul>
+<p><img src="images/yuyuan.jpg" alt="豫園古典園林與九曲橋"></p>
+</li>
+<li><p><strong>第二站：外灘（萬國建築群與黃浦江景）</strong></p>
+<ul>
+<li><strong>如何逛</strong>：從豫園直接搭乘網約車（車程約 10 分鐘，費用約 15 元），定位在「<strong>外灘金融牛</strong>」或「<strong>中山東一路福州路口</strong>」下車。下車後直接上外灘觀景平台。</li>
+<li><strong>適度步行秘訣</strong>：此處是觀賞黃浦江對岸陸家嘴「三件套」（東方明珠、上海中心大廈、環球金融中心）與外灘百年歷史建築群的最佳交界點。沿著江邊平台向北步行約 500 公尺即可拍出經典大片，不需走完整條外灘。</li>
+<li><strong>交通回程</strong>：拍照結束後，向西步行約 500 公尺至「南京東路站」搭乘地鐵 2 號線（搭乘 1 站即可回到南京西路飯店），或直接在中山東一路叫車回飯店。</li>
+</ul>
+<p><img src="images/waitan.jpg" alt="外灘黃浦江兩岸夜景與陸家嘴天際線"></p>
+</li>
+</ul>
+<hr>
+<h2>2. 法租界落葉梧桐散策：武康路 ＋ 安福路</h2>
+<p>本區極富老上海文藝氣息，街區氛圍悠閒，綠蔭避暑。</p>
+<h3>導覽與逛法</h3>
+<ul>
+<li><p><strong>如何逛</strong>：</p>
+<ol>
+<li>搭乘地鐵 10 號線至「交通大學站」，或直接搭乘網約車定位在「<strong>武康大樓</strong>」（淮海中路 1850 號）下車。這棟熨斗狀的百年歷史公寓是上海最經典的人文地標，可在此合影留念。</li>
+<li>沿著<strong>武康路</strong>向北步行。這段路兩旁種滿了法國梧桐樹，遮蔭效果極佳，有許多西班牙式與法式老洋房（如巴金故居）。</li>
+<li>沿武康路步行約 800 公尺至<strong>安福路</strong>口左轉。安福路是文青買手店、特色咖啡店的聚集地。</li>
+</ol>
+</li>
+<li><p><strong>適度步行與休息策略</strong>：</p>
+<ul>
+<li>整條路線步行距離約 1.2 公里，走走停停約需 1.5 小時。</li>
+<li>沿途有無數精緻的獨立咖啡館（如 RAC Coffee、Peet&#39;s Coffee），建議步行 20 分鐘即安排入座喝杯冷飲、吃個下午茶，悠閒享受街區的慢節奏。</li>
+<li>安福路上有許多特色文創小店與話劇中心，這段步行強度適中，落葉梧桐樹蔭很涼爽。</li>
+</ul>
+<p><img src="images/wukang_building.jpg" alt="武康大樓歷史建築外觀"></p>
+</li>
+</ul>
+<hr>
+<h2>3. 江南水鄉以船代步：朱家角古鎮</h2>
+<p>體驗傳統水鄉景色，並透過遊船大幅降低步行的疲勞感。</p>
+<h3>導覽與逛法</h3>
+<ul>
+<li><p><strong>如何逛</strong>：</p>
+<ol>
+<li><strong>交通方式</strong>：建議全家直接叫網約車前往（車程約 50 分鐘，費用約 150 - 180 元，免除地鐵多次站立轉乘之累）。</li>
+<li><strong>以船代步低步行路線</strong>：<ul>
+<li>進入景區後，直接步行至最近的「課植園碼頭」或「古鎮入口碼頭」。</li>
+<li>購買「手搖船票」（可選擇遊覽單程或雙程，整船約 80 - 150 元人民幣，最多可坐 6 人）。</li>
+<li>乘船沿著狹窄水道穿梭，觀賞兩岸粉牆黛瓦的徽派民居，避開岸上擁擠的石板路與長途步行。</li>
+<li>於「放生橋碼頭」下船，放生橋是華東地區最大的一座五孔石拱橋。</li>
+</ul>
+</li>
+<li><strong>餐飲與歇息</strong>：下船後在放生橋旁的臨水茶館（如喝杯江南阿婆茶）或特色餐館入座，一邊品嚐當地的「朱家角扎肉」與「糯米粽」，一邊欣賞水鄉夕陽，隨後搭車返回市區。</li>
+</ol>
+<p><img src="images/zhujiajiao_boat.jpg" alt="朱家角古鎮手搖船遊河"></p>
+</li>
+</ul>
+<hr>
+<h2>4. 科技與運動交匯：世博展覽館 ＋ 中華藝術宮 ＋ 洛克公園 ＋ 蘿蔔快跑</h2>
+<p>本區融合了最新 AI 科技展會（限時活動）、街頭籃球運動與人文藝術行程。</p>
+<h3>💡 避坑指引：博物館公休提示</h3>
+<ul>
+<li><strong>中華藝術宮</strong>（原世博中國館）實行**「星期一公休」**政策。本指南已將其調整至 Day 4（星期三）參觀；而 Day 2（星期一）下午則專注於參觀限時舉辦的世界人工智慧大會與無人駕駛體驗。</li>
+</ul>
+<h3>導覽與逛法</h3>
+<ul>
+<li><p><strong>限時地標：2026 世界人工智慧大會 (WAIC 2026) 展覽</strong></p>
+<ul>
+<li><strong>活動展期</strong>：2026 年 7 月 17 日 - 7 月 20 日（<strong>7/20 星期一為最後一天</strong>）。</li>
+<li><strong>展出地點</strong>：上海世博展覽館（國展路 1099 號，鄰近世博源商場）。</li>
+<li><strong>如何逛</strong>：需提前在大會官方網站或微信公眾號「世界人工智能大会」預約專業觀眾或公眾展區門票。大會將展出最新的人形機器人、生成式 AI 創新應用、自動駕駛與元宇宙互動設備，是極具前沿科技的盛宴。</li>
+</ul>
+<p><img src="images/waic_2026.jpg" alt="WAIC 2026 人形機器人與 AI 展區"></p>
+</li>
+<li><p><strong>第一站：中華藝術宮（原世博中國館，安排於星期三）</strong></p>
+<ul>
+<li><strong>特色</strong>：宏偉的紅色斗拱建築。館內珍藏有巨大的「<strong>電子動態版清明上河圖</strong>」（需於微信小程序提前預約免費門票，清明上河圖展廳現場加購 20 元門票）。</li>
+<li><strong>如何逛</strong>：入館後直奔動態清明上河圖展廳，參觀時間約 1 小時，內部有空調且有無障礙電梯，步行強度低。</li>
+</ul>
+<p><img src="images/china_art_museum.jpg" alt="中華藝術宮紅色外觀"></p>
+</li>
+<li><p><strong>第二站：洛克公園（世博源店，安排於星期三）</strong></p>
+<ul>
+<li><strong>特色</strong>：世博源是一個超大型下沉式商場。這裡的洛克公園設有極具美式街頭塗鴉風格的室內外籃球場，是上海街頭籃球的標誌性場地。</li>
+<li><strong>如何逛</strong>：從中華藝術宮步行約 5 分鐘即可進入世博源商場，可於現場觀賞當地的籃球愛好者鬥牛，或付費租用半場體驗投籃。</li>
+</ul>
+<p><img src="images/rock_park_shiboyuan.jpg" alt="洛克公園世博源店街頭籃球場"></p>
+</li>
+<li><p><strong>第三站：蘿蔔快跑 (Robotaxi) 無人駕駛科技體驗</strong></p>
+<ul>
+<li><strong>特色</strong>：百度研發的 L4 級自動駕駛出租車，世博片區為其營運示範區。後座有觸控螢幕顯示 AI 對周圍路況、車輛、行人的即時 3D 感知建模，充滿新鮮科技感。</li>
+<li><strong>如何體驗</strong>：使用 APP 叫車，起點設為世博源或世博展覽館，終點設為「梅賽德斯-奔馳文化中心」，體驗無人駕駛。</li>
+</ul>
+<p><img src="images/apollo_go.jpg" alt="蘿蔔快跑無人駕駛網約車"></p>
+</li>
+</ul>
+<hr>
+<h2>5. 二次元與 3C 二重奏：徐家匯美羅城</h2>
+<p>本區是尋找手遊周邊、3C 數碼產品與電玩體驗的二次元地標。</p>
+<h3>導覽與逛法</h3>
+<ul>
+<li><p><strong>如何逛</strong>：</p>
+<ol>
+<li>搭乘地鐵 9 號線直達「徐家匯站」，出站直接連通「美羅城」百貨地下一樓。</li>
+<li><strong>美羅城（二次元與潮流聖地）</strong>：<ul>
+<li><strong>B1 樓 ＆ 3 樓</strong>：聚集了大量的動漫線下旗艦店。包括 animate、米哈遊（Mihoyo）周邊專賣店（原神、崩壞星穹鐵道）、騰訊手遊周邊店、任天堂授權店及 Sony 旗艦店。</li>
+</ul>
+</li>
+<li><strong>百腦匯 (BuyNow) 科技廣場</strong>：<ul>
+<li>位於美羅城對面。內有各種最新智慧型手機、VR 體驗館、遊戲外設配件以及電競組裝機展示，是上海最著名的 3C 商場。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>餐飲推薦</strong>：美羅城內有多家高性價比（高 CP 值）的平民美食，如「小楊生煎」（招牌三拼生煎）與「佳家湯包」（現包蟹粉鮮肉小籠），人均約 30 - 50 元人民幣。</p>
+<p><img src="images/metro_city.jpg" alt="美羅城水晶球外觀夜景"></p>
+</li>
+</ul>
+<hr>
+<h2>6. 運動潮流與科技地標：Nike 上海 001</h2>
+<p>全球首家 Nike House of Innovation 旗艦店，融合了運動裝備與互動科技體驗。</p>
+<h3>導覽與逛法</h3>
+<ul>
+<li><p><strong>特色</strong>：位於南京東路步行街起點的世茂廣場，共有 4 層樓空間。店內設有「Nike By You」專屬定制區（可客製化球鞋與服飾），並在 1 樓設有數字化感應互動跑道，可進行運動感應挑戰，充滿科技感，非常適合年輕人與球鞋愛好者。</p>
+</li>
+<li><p><strong>如何逛</strong>：建議搭乘地鐵 2 號線至「人民廣場站」由 19 號出口出站，直接進入世茂廣場。參觀與體驗時間約 1 - 1.5 小時。</p>
+<p><img src="images/nike_shanghai_001.png" alt="Nike 上海 001 旗艦店科技感外觀"></p>
+</li>
+</ul>
+
+      </article>
+
+      <footer>
+        <p>© 2026 上海自駕與科技探索家庭自由行手冊</p>
+        <p style="margin-top: 0.35rem; font-size: 0.75rem; color: var(--text-muted);">最後更新時間：2026-06-02</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // 手機版側邊欄開關邏輯
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', (e) => {
+      sidebar.classList.toggle('open');
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首頁與基本資訊 - 上海自由行手冊</title>
+  <style>
+    /* Wix 自然探索與度假風設計系統 */
+    :root {
+      --bg-color: #f7f6f0;         /* 暖米沙色背景 */
+      --card-bg: #ffffff;          /* 純白內容卡片 */
+      --border-color: #e5dfd3;     /* 溫和的淡卡其色邊框 */
+      --text-main: #2d312e;        /* 深墨綠偏黑色文字 */
+      --text-muted: #6b7280;       /* 灰褐色副文字 */
+      --sidebar-bg: #1b3024;       /* 深森林綠側邊欄 */
+      --sidebar-text: #eae6df;     /* 象牙白側邊欄文字 */
+      --sidebar-muted: #8b9d90;    /* 側邊欄淡灰綠文字 */
+      --accent-color: #c2410c;     /* 陶土暖橘色 (Terra Cotta) */
+      --link-color: #0d9488;       /* 湖藍綠色 */
+      --hover-bg: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 佈局架構 */
+    #app {
+      display: flex;
+      width: 100%;
+    }
+
+    /* 響應式側邊欄 */
+    aside {
+      width: 290px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 2.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-title {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--sidebar-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    nav a {
+      color: var(--sidebar-text);
+      text-decoration: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-bg);
+      transform: translateX(3px);
+    }
+
+    nav a.active {
+      color: #1b3024;
+      background-color: #f7f6f0;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 手機頂部導覽列 (預設隱藏) */
+    .mobile-header {
+      display: none;
+      width: 100%;
+      height: 60px;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      padding: 0 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-header .logo-title {
+      font-size: 1.1rem;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* 主要內容區 */
+    main {
+      flex: 1;
+      margin-left: 290px;
+      padding: 4rem 5rem;
+      max-width: 1100px;
+      width: calc(100% - 290px);
+      min-height: 100vh;
+    }
+
+    /* 內頁卡片質感 */
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 3.5rem;
+      box-shadow: 0 4px 24px rgba(27, 48, 36, 0.04);
+    }
+
+    /* Wix 風格排版與美化 */
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      color: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--sidebar-bg);
+      display: flex;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    p {
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 1.75rem;
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a.markdown-link {
+      color: var(--link-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s;
+    }
+
+    a.markdown-link:hover {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+
+    /* 表格樣式優化 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #fcfbfa;
+      color: var(--sidebar-bg);
+      font-weight: 700;
+      font-family: Georgia, serif;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbfbf9;
+    }
+
+    /* 警告方塊 Github-style Alerts 改為溫暖陶土與淡黃色系 */
+    blockquote {
+      background: #fdfaf2;
+      border-left: 4px solid var(--accent-color);
+      padding: 1.25rem 1.75rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.75rem 0;
+    }
+
+    blockquote p {
+      margin-bottom: 0;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* 程式碼與結構樹 */
+    pre {
+      background: #fdfdfd;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      background: #fff8f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #fce8e1;
+    }
+
+    pre code {
+      color: #374151;
+      background: none;
+      padding: 0;
+      border: none;
+    }
+
+    /* 大圖卡片與圓角 (自然風景美學) */
+    img {
+      display: block;
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 16px rgba(27, 48, 36, 0.06);
+      border: 1px solid var(--border-color);
+    }
+
+    /* 頁尾 */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 螢幕響應式設定 */
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column;
+      }
+      
+      aside {
+        transform: translateX(-100%);
+        width: 290px;
+        box-shadow: 8px 0 25px rgba(27, 48, 36, 0.15);
+      }
+
+      aside.open {
+        transform: translateX(0);
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+
+      main {
+        margin-left: 0;
+        margin-top: 60px;
+        padding: 2rem 1.25rem;
+        width: 100%;
+      }
+
+      .content-card {
+        padding: 2rem 1.5rem;
+        border-radius: 8px;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      h2 {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 手機頂部導覽列 -->
+  <div class="mobile-header">
+    <span class="logo-title">上海自由行手冊</span>
+    <button class="menu-toggle" id="menuBtn">☰</button>
+  </div>
+
+  <div id="app">
+    <!-- 側邊導覽欄 -->
+    <aside id="sidebar">
+      <div class="logo-container">
+        <div class="logo-title">上海自由行</div>
+        <div class="logo-subtitle">FAMILY EXPLORATION</div>
+      </div>
+      <nav>
+        <a href="index.html" class="active">🏠 首頁與基本資訊</a>
+        <a href="00-pre-travel-checklist.html" class="">📋 行前檢查與避坑</a>
+        <a href="01-telecom-and-bank.html" class="">💳 聯通門號與富邦開戶</a>
+        <a href="02-attraction-guide.html" class="">🧭 景點導覽與低步行</a>
+        <a href="03-itinerary.html" class="">📅 6天5夜活動行程</a>
+      </nav>
+      <div style="margin-top: auto; font-size: 0.75rem; color: var(--sidebar-muted); text-align: center; letter-spacing: 0.5px;">
+        100% 離線免網手冊
+      </div>
+    </aside>
+
+    <!-- 主要內容展示區 -->
+    <main>
+      <article class="content-card">
+        <h1>上海自由行手冊：行前準備與基礎資訊</h1>
+<p>歡迎使用本上海自由行數位手冊！本指南為全家人整理了 2026 年 7 月 19 日至 7 月 24 日的旅行基礎資訊、交通評估、各景點深度導覽及每日行程，協助您享受順暢愉快的上海之旅。</p>
+<hr>
+<h2>航班與住宿資訊</h2>
+<h3>1. 航班時程表</h3>
+<ul>
+<li><strong>去程</strong>：2026 年 7 月 19 日 09:55 am（TPE 桃園國際機場 T2）～ 12:05 pm（PVG 上海浦東機場 T2）<ul>
+<li><strong>航班</strong>：長榮航空 BR712，機型波音 777，艙等經濟艙 V。</li>
+</ul>
+</li>
+<li><strong>回程</strong>：2026 年 7 月 24 日 16:00 pm（PVG 上海浦東機場 T2）～ 18:00 pm（TPE 桃園國際機場 T2）<ul>
+<li><strong>航班</strong>：長榮航空 BR751，機型波音 777，艙等經濟艙 V。</li>
+</ul>
+</li>
+</ul>
+<h3>2. 住宿飯店資訊</h3>
+<ul>
+<li><strong>名稱</strong>：上海南京西路亞朵 X 酒店（Atour X Hotel Shanghai Nanjing West Road）</li>
+<li><strong>地址</strong>：上海市靜安區南京西路 698 號。</li>
+<li><strong>位置特點</strong>：位於市中心人民廣場與南京西路商圈，鄰近地鐵南京西路站（2 號線、12 號線、13 號線），周邊餐飲與購物極為便利。</li>
+</ul>
+<hr>
+<h2>機場往返飯店交通評估</h2>
+<p>從上海浦東國際機場（PVG）前往南京西路亞朵 X 酒店，建議考量以下三種方案：</p>
+<table>
+<thead>
+<tr>
+<th align="left">方案</th>
+<th align="left">交通工具</th>
+<th align="left">預估時間</th>
+<th align="left">預估費用 (人民幣)</th>
+<th align="left">步行與行李負擔評估</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>方案 A (推薦)</strong></td>
+<td align="left">網約車 (滴滴出行)</td>
+<td align="left">60 - 75 分鐘</td>
+<td align="left">約 150 - 180 元</td>
+<td align="left"><strong>最低</strong>。出關後直接於指定網約車乘車區上車，直達飯店門口，免去拖行李上下地鐵與轉乘之累。</td>
+</tr>
+<tr>
+<td align="left"><strong>方案 B (省時)</strong></td>
+<td align="left">磁浮列車 ＋ 地鐵 2 號線</td>
+<td align="left">45 - 50 分鐘</td>
+<td align="left">單程 50 元 ＋ 地鐵 4 元</td>
+<td align="left"><strong>中等</strong>。磁浮只需 8 分鐘抵達龍陽路站，憑當日機票磁浮單程打 8 折（40 元）。但轉乘地鐵 2 號線需步行約 5 分鐘。</td>
+</tr>
+<tr>
+<td align="left"><strong>方案 C (省錢)</strong></td>
+<td align="left">地鐵 2 號線直達</td>
+<td align="left">75 - 80 分鐘</td>
+<td align="left">7 元</td>
+<td align="left"><strong>高</strong>。不需轉乘，但地鐵行車時間長，車廂內人多，需全程看管隨身行李。</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>本指南檔案導覽</h2>
+<p>您可點選下方連結或左側選單，隨時切換至不同主題頁面：</p>
+<ul>
+<li><strong><a href="index.html">README.md</a></strong>：本頁首頁與基礎航班住宿資訊。</li>
+<li><strong><a href="00-pre-travel-checklist.html">00-pre-travel-checklist.md</a></strong>：行前檢查與安全避坑指南（包含行李規定、地鐵安檢、3% 手續費規避及雙網上網設定）。</li>
+<li><strong><a href="01-telecom-and-bank.html">01-telecom-and-bank.md</a></strong>：手機門號實名制辦理與銀行開戶實戰手冊。</li>
+<li><strong><a href="02-attraction-guide.html">02-attraction-guide.md</a></strong>：各熱門景點深度導覽與低步行逛法（含 WAIC 2026 科技展與無人駕駛體驗）。</li>
+<li><strong><a href="03-itinerary.html">03-itinerary.md</a></strong>：6 天 5 夜詳細行程時間表（已串接展覽與公休避坑資訊）。</li>
+</ul>
+
+      </article>
+
+      <footer>
+        <p>© 2026 上海自駕與科技探索家庭自由行手冊</p>
+        <p style="margin-top: 0.35rem; font-size: 0.75rem; color: var(--text-muted);">最後更新時間：2026-06-02</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // 手機版側邊欄開關邏輯
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', (e) => {
+      sidebar.classList.toggle('open');
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

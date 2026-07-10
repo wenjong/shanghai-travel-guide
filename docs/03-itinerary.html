@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6天5夜活動行程 - 上海自由行手冊</title>
+  <style>
+    /* Wix 自然探索與度假風設計系統 */
+    :root {
+      --bg-color: #f7f6f0;         /* 暖米沙色背景 */
+      --card-bg: #ffffff;          /* 純白內容卡片 */
+      --border-color: #e5dfd3;     /* 溫和的淡卡其色邊框 */
+      --text-main: #2d312e;        /* 深墨綠偏黑色文字 */
+      --text-muted: #6b7280;       /* 灰褐色副文字 */
+      --sidebar-bg: #1b3024;       /* 深森林綠側邊欄 */
+      --sidebar-text: #eae6df;     /* 象牙白側邊欄文字 */
+      --sidebar-muted: #8b9d90;    /* 側邊欄淡灰綠文字 */
+      --accent-color: #c2410c;     /* 陶土暖橘色 (Terra Cotta) */
+      --link-color: #0d9488;       /* 湖藍綠色 */
+      --hover-bg: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 佈局架構 */
+    #app {
+      display: flex;
+      width: 100%;
+    }
+
+    /* 響應式側邊欄 */
+    aside {
+      width: 290px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 2.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-title {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-subtitle {
+      font-size: 0.75rem;
+      color: var(--sidebar-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    nav a {
+      color: var(--sidebar-text);
+      text-decoration: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-bg);
+      transform: translateX(3px);
+    }
+
+    nav a.active {
+      color: #1b3024;
+      background-color: #f7f6f0;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 手機頂部導覽列 (預設隱藏) */
+    .mobile-header {
+      display: none;
+      width: 100%;
+      height: 60px;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      padding: 0 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-header .logo-title {
+      font-size: 1.1rem;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* 主要內容區 */
+    main {
+      flex: 1;
+      margin-left: 290px;
+      padding: 4rem 5rem;
+      max-width: 1100px;
+      width: calc(100% - 290px);
+      min-height: 100vh;
+    }
+
+    /* 內頁卡片質感 */
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 3.5rem;
+      box-shadow: 0 4px 24px rgba(27, 48, 36, 0.04);
+    }
+
+    /* Wix 風格排版與美化 */
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      color: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--sidebar-bg);
+      display: flex;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    p {
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 1.75rem;
+      margin-bottom: 1.3rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a.markdown-link {
+      color: var(--link-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s;
+    }
+
+    a.markdown-link:hover {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+
+    /* 表格樣式優化 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #fcfbfa;
+      color: var(--sidebar-bg);
+      font-weight: 700;
+      font-family: Georgia, serif;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbfbf9;
+    }
+
+    /* 警告方塊 Github-style Alerts 改為溫暖陶土與淡黃色系 */
+    blockquote {
+      background: #fdfaf2;
+      border-left: 4px solid var(--accent-color);
+      padding: 1.25rem 1.75rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.75rem 0;
+    }
+
+    blockquote p {
+      margin-bottom: 0;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* 程式碼與結構樹 */
+    pre {
+      background: #fdfdfd;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.75rem 0;
+    }
+
+    code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      background: #fff8f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #fce8e1;
+    }
+
+    pre code {
+      color: #374151;
+      background: none;
+      padding: 0;
+      border: none;
+    }
+
+    /* 大圖卡片與圓角 (自然風景美學) */
+    img {
+      display: block;
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 16px rgba(27, 48, 36, 0.06);
+      border: 1px solid var(--border-color);
+    }
+
+    /* 頁尾 */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 螢幕響應式設定 */
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column;
+      }
+      
+      aside {
+        transform: translateX(-100%);
+        width: 290px;
+        box-shadow: 8px 0 25px rgba(27, 48, 36, 0.15);
+      }
+
+      aside.open {
+        transform: translateX(0);
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+
+      main {
+        margin-left: 0;
+        margin-top: 60px;
+        padding: 2rem 1.25rem;
+        width: 100%;
+      }
+
+      .content-card {
+        padding: 2rem 1.5rem;
+        border-radius: 8px;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      h2 {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 手機頂部導覽列 -->
+  <div class="mobile-header">
+    <span class="logo-title">上海自由行手冊</span>
+    <button class="menu-toggle" id="menuBtn">☰</button>
+  </div>
+
+  <div id="app">
+    <!-- 側邊導覽欄 -->
+    <aside id="sidebar">
+      <div class="logo-container">
+        <div class="logo-title">上海自由行</div>
+        <div class="logo-subtitle">FAMILY EXPLORATION</div>
+      </div>
+      <nav>
+        <a href="index.html" class="">🏠 首頁與基本資訊</a>
+        <a href="00-pre-travel-checklist.html" class="">📋 行前檢查與避坑</a>
+        <a href="01-telecom-and-bank.html" class="">💳 聯通門號與富邦開戶</a>
+        <a href="02-attraction-guide.html" class="">🧭 景點導覽與低步行</a>
+        <a href="03-itinerary.html" class="active">📅 6天5夜活動行程</a>
+      </nav>
+      <div style="margin-top: auto; font-size: 0.75rem; color: var(--sidebar-muted); text-align: center; letter-spacing: 0.5px;">
+        100% 離線免網手冊
+      </div>
+    </aside>
+
+    <!-- 主要內容展示區 -->
+    <main>
+      <article class="content-card">
+        <h1>上海 6 天 5 夜詳細行程時間表</h1>
+<p>本行程已整合 <strong>2026 世界人工智慧大會 (WAIC 2026)</strong> 的參展時程，避開了博物館的週一閉館公休，並將每日步數控制在舒適的 8000 - 12000 步內，同時包含了大眾交通安檢與行動支付的避坑指引。</p>
+<hr>
+<h2>每日行程概要</h2>
+<ul>
+<li><strong>Day 1 (7/19 週日)</strong>：抵達上海 ＞ 酒店 Check-in ＞ 辦理聯通實名門號 ＞ 吳江路特色生煎 ＞ <strong>Nike 上海 001 旗艦店</strong></li>
+<li><strong>Day 2 (7/20 週一)</strong>：富邦華一開戶 ＞ <strong>參觀 WAIC 2026 世界人工智慧大會</strong> ＞ 蘿蔔快跑體驗 ＞ 外灘江景</li>
+<li><strong>Day 3 (7/21 週二)</strong>：江南水鄉一日遊（朱家角古鎮以船代步 ＞ 臨水茶館歇息）</li>
+<li><strong>Day 4 (7/22 週三)</strong>：中華藝術宮（電子清明上河圖）＞ 洛克公園籃球 ＞ 陸家嘴夜景</li>
+<li><strong>Day 5 (7/23 週四)</strong>：徐家匯美羅城（二次元 ＆ 3C）＞ 武康路與安福路梧桐散策 ＞ 老字號本幫菜（瑞福園）</li>
+<li><strong>Day 6 (7/24 週五)</strong>：星巴克旗艦工坊 ＞ 行理整理 ＞ 前往機場 ＞ 返台</li>
+</ul>
+<hr>
+<h2>詳細行程時間表</h2>
+<h3>Day 1：7/19 (星期日) ── 抵達上海與實名門號申辦</h3>
+<ul>
+<li><strong>09:55 - 12:05</strong>：搭乘長榮航空 BR712 抵達上海浦東機場 T2。</li>
+<li><strong>12:05 - 13:30</strong>：辦理出關、提領行李。</li>
+<li><strong>13:30 - 14:45</strong>：<strong>交通</strong>：於機場搭乘網約車（滴滴出行）直達酒店（車程約 70 分鐘，費用約 160 元人民幣）。</li>
+<li><strong>14:45 - 15:30</strong>：辦理酒店 Check-in，放妥行李，稍作休息。</li>
+<li><strong>15:30 - 16:30</strong>：<strong>交通</strong>：步行 10 分鐘至【中國聯通泰興路營業廳】辦理實名門號，當場開啟港澳台漫遊功能。</li>
+<li><strong>16:30 - 18:30</strong>：<strong>晚餐</strong>：步行至酒店旁的「吳江路美食街」（步行僅 3 分鐘）。<ul>
+<li><strong>推薦餐飲</strong>：<strong>小楊生煎</strong>（招牌三拼生煎 ＋ 酸辣粉，人均 25 元）或<strong>佳家湯包</strong>（鮮肉小籠包 ＋ 蛋皮小餛飩，人均 35 元），單筆不滿 200 元可放心刷台灣卡，免 3% 平台手續費。</li>
+</ul>
+</li>
+<li><strong>18:30 - 19:00</strong>：<strong>交通</strong>：由地鐵「南京西路站」搭乘 2 號線（往廣蘭路方向）僅 1 站至「人民廣場站」下車，19 號出口直達世茂廣場（亦可選擇沿南京東路步行約 15 分鐘前往）。</li>
+<li><strong>19:00 - 20:30</strong>：逛【Nike 上海 001】旗艦店（南京東路世茂廣場）。這是全球首家 Nike House of Innovation，設有 4 層樓科技感運動體驗空間，可體驗 Nike By You 獨家鞋款服飾定制、數字化感應跑道與最新潮流裝備。</li>
+<li><strong>20:30 - 21:30</strong>：於南京東路步行街與人民廣場散步，測試新門號網路與通訊，隨後搭乘地鐵 2 號線返回南京西路酒店。</li>
+<li><strong>預估本日步數</strong>：約 8000 步。</li>
+</ul>
+<hr>
+<h3>Day 2：7/20 (星期一) ── 銀行開戶與 WAIC 2026 科技體驗</h3>
+<ul>
+<li><strong>09:00 - 09:20</strong>：<strong>交通</strong>：由地鐵「南京西路站」搭乘 2 號線（往徐涇東）僅 1 站至「靜安寺站」，6 號出口步行 3 分鐘至銀行。</li>
+<li><strong>09:30 - 11:30</strong>：於【富邦華一銀行靜安支行】辦理銀行帳戶開戶，存入 1000 元定存，並當場測試微信/支付寶綁定此卡。</li>
+<li><strong>11:30 - 13:00</strong>：<strong>午餐</strong>：於靜安寺商圈之【大牌小廚】享用午餐。<ul>
+<li><strong>推薦餐飲</strong>：大牌小廚（高 CP 值的江浙菜與上海點心，人均約 50 - 70 元）。</li>
+</ul>
+</li>
+<li><strong>13:00 - 13:20</strong>：<strong>交通</strong>：於靜安寺站搭乘地鐵 7 號線（往花木路），直達「耀華路站」下車（僅 5 站，車程 15 分鐘），步行 3 分鐘抵達世博展覽館。</li>
+<li><strong>13:20 - 16:30</strong>：**參觀【WAIC 2026 世界人工智慧大會】**展覽。參觀最新的人形機器人、生成式 AI 應用，體驗前沿科技（需提前於微信公眾號預約大會門票）。</li>
+<li><strong>16:30 - 17:30</strong>：<strong>蘿蔔快跑 (Robotaxi) AI 無人駕駛體驗</strong>。<ul>
+<li><strong>方法</strong>：使用 APP 叫車，起點設為世博展覽館，終點設為「梅賽德斯-奔馳文化中心」，體驗無人駕駛。</li>
+</ul>
+</li>
+<li><strong>17:30 - 19:00</strong>：<strong>晚餐</strong>：於世博源商場內享用晚餐（推薦外婆家，高 CP 值江浙菜，人均 60 元）。此時可使用新開立的富邦卡付款，<strong>避開大於 200 元的 3% 海外手續費</strong>。</li>
+<li><strong>19:00 - 19:30</strong>：<strong>交通</strong>：搭乘網約車前往【外灘金融牛】（車程約 15 分鐘，費用約 20 元）。</li>
+<li><strong>19:30 - 20:30</strong>：於外灘觀景台觀賞黃浦江兩岸夜景。</li>
+<li><strong>20:30 -</strong>：搭乘地鐵 2 號線返回南京西路酒店。</li>
+<li><strong>預估本日步數</strong>：約 12000 步。</li>
+</ul>
+<hr>
+<h3>Day 3：7/21 (星期二) ── 江南水鄉一日遊 (朱家角)</h3>
+<ul>
+<li><strong>09:30 - 10:30</strong>：<strong>交通</strong>：於酒店門口搭乘網約車直達青浦區【朱家角古鎮】（車程約 50 分鐘，省力推薦）。</li>
+<li><strong>10:30 - 12:30</strong>：抵達古鎮，前往碼頭購買手搖船票。以「手搖船代步」穿梭水鄉水道，直達「放生橋」下船。</li>
+<li><strong>12:30 - 14:00</strong>：<strong>午餐</strong>：於放生橋旁的臨水餐館用餐。<ul>
+<li><strong>推薦餐飲</strong>：當地農家特色菜（朱家角扎肉、清蒸白絲魚、蜆子炒蛋，高 CP 值，人均 70 元）。</li>
+</ul>
+</li>
+<li><strong>14:00 - 16:00</strong>：在放生橋旁的臨水茶館入座，喝阿婆茶、吃乾果，享受午後水鄉的慢節奏。</li>
+<li><strong>16:00 - 17:00</strong>：<strong>交通</strong>：搭乘網約車返回市區飯店。</li>
+<li><strong>17:00 - 18:30</strong>：酒店休息放鬆。</li>
+<li><strong>18:30 - 20:00</strong>：<strong>晚餐</strong>：步行至南京西路商圈的【哈靈麵館】。<ul>
+<li><strong>推薦餐飲</strong>：哈靈牛蛙麵（份量極大、湯頭濃郁的在地特色麵食，人均 35 元，極具特色）。</li>
+</ul>
+</li>
+<li><strong>預估本日步數</strong>：約 8000 步。</li>
+</ul>
+<hr>
+<h3>Day 4：7/22 (星期三) ── 中華藝術與籃球休閒 (世博源)</h3>
+<ul>
+<li><strong>09:30 - 10:00</strong>：<strong>交通</strong>：由地鐵「南京西路站」搭乘 12 號線至「漢中路站」，轉乘 8 號線直達「中華藝術宮站」。</li>
+<li><strong>10:00 - 12:00</strong>：參觀【中華藝術宮】（週三正常營業，避開週一閉館），重點觀賞「電子動態版清明上河圖」（需於微信小程序提前預約免費門票，清明上河圖展廳現場加購 20 元門票）。</li>
+<li><strong>12:00 - 13:30</strong>：<strong>午餐</strong>：於連通的【世博源商場】內享用輕食或簡餐（人均 40 元）。</li>
+<li><strong>13:30 - 15:30</strong>：前往世博源的【洛克公園籃球場】，可現場體驗投籃或觀賞街頭籃球鬥牛。</li>
+<li><strong>15:30 - 16:00</strong>：<strong>交通</strong>：搭乘地鐵 8 號轉 2 號線，或叫網約車前往陸家嘴。</li>
+<li><strong>16:00 - 17:30</strong>：於陸家嘴環形天橋上散步，近距離觀賞東方明珠與摩天大樓。</li>
+<li><strong>17:30 - 19:30</strong>：<strong>晚餐</strong>：於陸家嘴正大廣場內用餐（人均 80 元，選擇多元）。</li>
+<li><strong>19:30 - 20:30</strong>：欣賞陸家嘴霓虹夜景。</li>
+<li><strong>20:30 -</strong>：搭乘地鐵 2 號線返回南京西路酒店.</li>
+<li><strong>預估本日步數</strong>：約 9000 步。</li>
+</ul>
+<hr>
+<h3>Day 5：7/23 (星期四) ── 3C 動漫與法租界老洋房散策</h3>
+<ul>
+<li><strong>09:30 - 10:00</strong>：<strong>交通</strong>：由地鐵「南京西路站」搭乘 12 號線至「陜西南路站」，轉乘 9 號線至「徐家匯站」。</li>
+<li><strong>10:00 - 13:00</strong>：逛【美羅城】百貨（animate、米哈遊周邊、任天堂、Sony 旗艦店）與對面的【百腦匯 3C 廣場】。</li>
+<li><strong>13:00 - 14:00</strong>：<strong>午餐</strong>：於美羅城內享用港式點心或上海本幫小吃（人均 50 元）。</li>
+<li><strong>14:00 - 14:15</strong>：<strong>交通</strong>：由徐家匯搭乘網約車至【武康大樓】下車（車程約 10 分鐘，費用約 15 元）。</li>
+<li><strong>14:15 - 17:00</strong>：<strong>武康路與安福路梧桐散策</strong>。沿著武康路步行至安福路，中途於咖啡館（如 RAC Coffee）喝下午茶歇息。</li>
+<li><strong>17:00 - 19:00</strong>：<strong>晚餐</strong>：步行至鄰近的上海老字號本幫菜【瑞福園】。<ul>
+<li><strong>推薦餐飲</strong>：瑞福園（招牌大黃魚棒打小餛飩、油爆蝦、響油鱔絲，地道高 CP 值上海菜，人均約 110 元，可用富邦卡付帳免手續費）。</li>
+</ul>
+</li>
+<li><strong>19:00 -</strong>：搭乘網約車返回酒店。</li>
+<li><strong>預估本日步數</strong>：約 11000 步。</li>
+</ul>
+<hr>
+<h3>Day 6：7/24 (星期五) ── 科技烘焙工坊與返台</h3>
+<ul>
+<li><strong>09:30 - 11:30</strong>：步行 3 分鐘至酒店旁的【星巴克臻選上海烘焙工坊】。觀賞巨大的咖啡豆烘焙銅罐、咖啡豆空中輸送管道等科技設備。</li>
+<li><strong>11:30 - 13:00</strong>：<strong>午餐</strong>：於吳江路美食街享用在地生煎與麵點（人均 30 元）。</li>
+<li><strong>13:00 - 13:30</strong>：辦理酒店 Check-out，提領行李。</li>
+<li><strong>13:30 - 14:30</strong>：<strong>交通</strong>：搭乘網約車直達浦東機場 T2（車程約 60 分鐘，費用約 160 元人民幣）。</li>
+<li><strong>14:30 - 16:00</strong>：機場辦理登機手續、行李託運。</li>
+<li><strong>16:00 - 18:00</strong>：搭乘長榮航空 BR751 返回台北桃園機場 T2，結束行程。</li>
+<li><strong>預估本日步數</strong>：約 5000 步。</li>
+</ul>
+
+      </article>
+
+      <footer>
+        <p>© 2026 上海自駕與科技探索家庭自由行手冊</p>
+        <p style="margin-top: 0.35rem; font-size: 0.75rem; color: var(--text-muted);">最後更新時間：2026-06-02</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // 手機版側邊欄開關邏輯
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', (e) => {
+      sidebar.classList.toggle('open');
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
