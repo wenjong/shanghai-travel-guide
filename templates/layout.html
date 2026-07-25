@@ -270,6 +270,86 @@
         border-left-color: var(--clay-orange) !important;
       }
 
+      /* 全局表格樣式優化 (PC 端與大螢幕) */
+      table {
+        width: 100% !important;
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+        margin: 2rem 0 !important;
+        background: #ffffff !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(27, 48, 36, 0.15) !important;
+        box-shadow: 0 4px 20px rgba(70, 61, 54, 0.05) !important;
+        display: table !important;
+      }
+
+      thead {
+        display: table-header-group !important;
+        background-color: var(--forest-green) !important;
+      }
+
+      th {
+        background-color: var(--forest-green) !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        padding: 1rem 1.2rem !important;
+        font-size: 0.92rem !important;
+        text-align: left !important;
+        letter-spacing: 0.5px !important;
+        border-bottom: 3px solid var(--clay-orange) !important;
+        white-space: nowrap !important;
+      }
+
+      tbody {
+        display: table-row-group !important;
+      }
+
+      tr {
+        display: table-row !important;
+        background: transparent !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        transition: background 0.2s ease;
+      }
+
+      tr:nth-child(even) {
+        background-color: rgba(234, 230, 223, 0.25) !important;
+      }
+
+      tr:hover {
+        background-color: rgba(27, 48, 36, 0.04) !important;
+      }
+
+      td {
+        display: table-cell !important;
+        padding: 0.95rem 1.2rem !important;
+        border-bottom: 1px solid rgba(27, 48, 36, 0.08) !important;
+        font-size: 0.92rem !important;
+        color: var(--text-main) !important;
+        vertical-align: middle !important;
+        text-align: left !important;
+      }
+
+      td::before {
+        content: none !important; /* PC 端完全清除 data-label */
+      }
+
+      tr:last-child td {
+        border-bottom: none !important;
+      }
+
+      /* 表格橫向自動滾動容器保護 */
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 2rem 0;
+        border-radius: 12px;
+      }
+
       /* 03 行程表時間軸在手機端徹底隱藏左側虛線與圓形指針，以釋放 100% 橫向寬度 */
       .wix-timeline {
         padding-left: 0 !important;
@@ -287,58 +367,19 @@
         display: none !important; /* 隱藏圓形指針 */
       }
 
-      /* 讓表格在手機端自動化為垂直資訊卡片，防止破碎折行與亂版 */
-      table {
-        border: none !important;
-        margin: 1.5rem 0 !important;
-      }
+      /* 讓表格在手機端以極致優雅卡片化或自動橫向滾動呈現 */
+      @media (max-width: 768px) {
+        table {
+          display: block !important;
+          overflow-x: auto !important;
+          white-space: nowrap !important;
+          border-radius: 10px !important;
+        }
 
-      thead {
-        display: none !important; /* 隱藏表頭 */
-      }
-
-      tr {
-        display: block !important;
-        background: #ffffff !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: 12px !important;
-        padding: 1.25rem !important;
-        margin-bottom: 1.5rem !important;
-        box-shadow: 0 4px 15px rgba(70, 61, 54, 0.04) !important;
-      }
-
-      td {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        text-align: right !important;
-        padding: 0.75rem 0 !important;
-        border: none !important;
-        border-bottom: 1px dashed rgba(27, 48, 36, 0.08) !important;
-        font-size: 0.9rem !important;
-      }
-
-      td:last-child {
-        border-bottom: none !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        text-align: left !important;
-      }
-
-      /* 利用 data-label 屬性動態產生欄位標記 */
-      td::before {
-        content: attr(data-label);
-        font-weight: 700;
-        color: var(--forest-green);
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        margin-right: 1.5rem;
-        flex-shrink: 0;
-        text-align: left;
-      }
-
-      td:last-child::before {
-        margin-bottom: 0.4rem;
+        th, td {
+          padding: 0.75rem 0.9rem !important;
+          font-size: 0.85rem !important;
+        }
       }
     }
 
