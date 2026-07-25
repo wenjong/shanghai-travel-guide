@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消費明細與財務統計 - 上海自由行手冊</title>
+  <style>
+    /* Google Fonts 導入客製化 Serif 與 Sans-serif 字型 */
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --bg-color: #eae6df;          /* Wix 暖沙底色 */
+      --text-main: #2a2421;         /* 深泥炭褐文字 */
+      --text-muted: #5c5550;        /* 灰褐色副文字 */
+      --forest-green: #1b3024;      /* 森林綠 */
+      --clay-orange: #c2410c;       /* 陶土橘 */
+      --accent-gold: #d97706;       /* 金黃色 */
+      --glass-bg: rgba(255, 255, 255, 0.88);
+      --glass-border: rgba(27, 48, 36, 0.08);
+      --card-shadow: 0 10px 40px rgba(70, 61, 54, 0.07);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 頂級背景虛線與紙張質感裝飾 */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(27, 48, 36, 0.02) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* 置頂浮動毛玻璃導覽列 */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 75px;
+      background: rgba(27, 48, 36, 0.95); /* 深森林綠 */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+      padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-logo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-main {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    .logo-sub {
+      font-size: 0.65rem;
+      color: #8b9d90;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    /* 導覽連結 */
+    nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    nav a {
+      color: #eae6df;
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    nav a.active {
+      color: #1b3024;
+      background-color: #f7f6f0;
+      font-weight: 600;
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    /* 手機版選單按鈕 */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* 主內容容器 */
+    #container {
+      margin-top: 75px;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 75px);
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1160px;
+    }
+
+    /* 頂級內頁毛玻璃卡片 */
+    .content-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 4rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+    }
+
+    /* 頁尾 */
+    footer {
+      margin-top: 5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(27, 48, 36, 0.08);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 螢幕響應式設定 */
+    @media (max-width: 1024px) {
+      header {
+        padding: 0 1.5rem;
+      }
+
+      nav {
+        display: none; /* 手機版改為抽屜選單 */
+        flex-direction: column;
+        position: fixed;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background: rgba(27, 48, 36, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 1.5rem;
+        gap: 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      nav a {
+        padding: 0.8rem 1.2rem;
+        width: 100%;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      #container {
+        padding: 1.5rem 0.5rem;
+      }
+
+      .content-card {
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+
+      /* 針對手機端優化 wix-section-card 內邊距與圓角 */
+      .wix-section-card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 14px;
+        margin-bottom: 1.5rem;
+      }
+
+      /* 縮小手機端標題與內文字體，確保極致的閱讀密度 */
+      h1 {
+        font-size: 1.45rem !important;
+        margin-bottom: 1.2rem;
+        line-height: 1.4;
+      }
+
+      h2 {
+        font-size: 1.25rem !important;
+        margin-top: 1.8rem;
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.05rem !important;
+      }
+
+      p, li {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+        color: #3f3732;
+      }
+
+      /* 全網頁手機版清爽度優化：限制圖片高度與縮減列表/提示間距 */
+      img {
+        max-height: 250px !important;
+        width: 100% !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+        margin: 1rem 0 !important;
+      }
+
+      ul, ol {
+        padding-left: 1.25rem !important;
+        margin-bottom: 1rem !important;
+      }
+
+      blockquote {
+        padding: 1rem 1.25rem !important;
+        margin: 1.5rem 0 !important;
+        border-left-width: 4px !important;
+        font-size: 0.9rem !important;
+        border-radius: 4px !important;
+        background: rgba(194, 65, 12, 0.03) !important;
+        border-left-color: var(--clay-orange) !important;
+      }
+
+      /* 03 行程表時間軸在手機端徹底隱藏左側虛線與圓形指針，以釋放 100% 橫向寬度 */
+      .wix-timeline {
+        padding-left: 0 !important;
+        margin: 1.5rem 0 !important;
+        border-left: none !important;
+      }
+
+      .timeline-day-card {
+        padding: 1.5rem 1.25rem !important;
+        margin-bottom: 1.5rem !important;
+        border-radius: 14px !important;
+      }
+
+      .timeline-day-card::before {
+        display: none !important; /* 隱藏圓形指針 */
+      }
+
+      /* 讓表格在手機端自動化為垂直資訊卡片，防止破碎折行與亂版 */
+      table {
+        border: none !important;
+        margin: 1.5rem 0 !important;
+      }
+
+      thead {
+        display: none !important; /* 隱藏表頭 */
+      }
+
+      tr {
+        display: block !important;
+        background: #ffffff !important;
+        border: 1px solid var(--glass-border) !important;
+        border-radius: 12px !important;
+        padding: 1.25rem !important;
+        margin-bottom: 1.5rem !important;
+        box-shadow: 0 4px 15px rgba(70, 61, 54, 0.04) !important;
+      }
+
+      td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        text-align: right !important;
+        padding: 0.75rem 0 !important;
+        border: none !important;
+        border-bottom: 1px dashed rgba(27, 48, 36, 0.08) !important;
+        font-size: 0.9rem !important;
+      }
+
+      td:last-child {
+        border-bottom: none !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+      }
+
+      /* 利用 data-label 屬性動態產生欄位標記 */
+      td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--forest-green);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+        text-align: left;
+      }
+
+      td:last-child::before {
+        margin-bottom: 0.4rem;
+      }
+    }
+
+    /* Wix 畫冊與卡片重構樣式 */
+    .wix-section-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 3rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wix-section-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 50px rgba(70, 61, 54, 0.12);
+      border-color: rgba(27, 48, 36, 0.15);
+    }
+
+    /* 卡片背景圓點紋理裝飾 */
+    .wix-section-card::before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(194, 65, 12, 0.03) 2px, transparent 2px);
+      background-size: 16px 16px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .wix-section-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 00 避坑卡片與 02 景點卡片在 PC 端改為雙列排版 */
+    #content-00, #content-02 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    #content-00 > h1, #content-00 > p, #content-00 > hr,
+    #content-02 > h1, #content-02 > p, #content-02 > hr {
+      grid-column: 1 / -1;
+    }
+
+    @media (min-width: 900px) {
+      #content-00, #content-02 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      #content-00 > h1, #content-00 > p, #content-00 > hr,
+      #content-02 > h1, #content-02 > p, #content-02 > hr {
+        grid-column: span 2;
+      }
+    }
+
+    /* 03 行程表時間軸樣式 */
+    .wix-timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin: 3rem 0 3rem 1rem;
+      border-left: 2px dashed rgba(27, 48, 36, 0.2);
+    }
+
+    .timeline-day-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .timeline-day-card:hover {
+      transform: translateX(4px);
+      border-color: rgba(27, 48, 36, 0.15);
+    }
+
+    .timeline-day-card::before {
+      content: "🧭";
+      position: absolute;
+      left: -3.15rem;
+      top: 2.2rem;
+      background: var(--bg-color);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 密碼驗證覆蓋層 (保護旅行隱私) -->
+  <div id="passwordOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#eae6df; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; font-family:'Outfit', sans-serif;">
+    <div style="background:#ffffff; border:1px solid rgba(27, 48, 36, 0.08); border-radius:18px; padding:3rem 2rem; max-width:400px; width:100%; text-align:center; box-shadow:0 10px 40px rgba(70, 61, 54, 0.07);">
+      <h2 style="font-family:'Cinzel', serif; font-weight:800; color:#1b3024; margin-bottom:0.5rem; font-size:1.6rem;">Shanghai Guide</h2>
+      <p style="font-size:0.85rem; color:#5c5550; margin-bottom:2rem; letter-spacing:0.5px;">請輸入存取密碼以驗證身分</p>
+      <input type="password" id="pwInput" placeholder="請輸入密碼" style="width:100%; padding:0.8rem 1.2rem; border-radius:8px; border:1px solid #e5dfd3; font-size:1rem; margin-bottom:1.5rem; outline:none; text-align:center; box-sizing:border-box;">
+      <button id="pwBtn" style="width:100%; padding:0.8rem; background:#1b3024; border:none; border-radius:8px; color:#ffffff; font-size:1.05rem; font-weight:600; cursor:pointer; transition:all 0.2s;">驗證解鎖</button>
+      <p id="pwError" style="color:#c2410c; font-size:0.85rem; margin-top:1.2rem; display:none; font-weight:500;">⚠️ 密碼錯誤，請重新輸入</p>
+    </div>
+  </div>
+
+  <!-- 置頂毛玻璃導覽列 -->
+  <header>
+    <div class="header-logo">
+      <span class="logo-main">Shanghai Guide</span>
+      <span class="logo-sub">Family Travel 2026</span>
+    </div>
+    <button class="menu-toggle" id="menuBtn">☰</button>
+    <nav id="navbar">
+      <a href="index.html" class="">🏠 首頁資訊</a>
+      <a href="00-pre-travel-checklist.html" class="">📋 行前避坑</a>
+      <a href="01-telecom-and-bank.html" class="">💳 門號開戶</a>
+      <a href="02-attraction-guide.html" class="">🧭 景點導覽</a>
+      <a href="03-itinerary.html" class="">📅 行程細節</a>
+      <a href="04-expense-summary.html" class="active">💰 消費明細</a>
+    </nav>
+  </header>
+
+  <div id="container">
+    <main>
+      <article class="content-card">
+        <h1>上海 6 天 5 夜自由行實質消費明細與財務統計報告</h1>
+<p>本報告根據 <code>expense/</code> 資料夾內導出之微信支付（WeChat Pay）與支付寶（Alipay）交易流水賬單，進行全自動精確彙整、分類與結構化統計。報告統計區間為 <strong>2026 年 7 月 19 日至 2026 年 7 月 24 日</strong>。</p>
+<hr>
+<section class="wix-section-card"><h2>一、 財務總覽 (Financial Summary)</h2>
+<ul>
+<li><strong>總支出金額</strong>：<strong>RMB 6,650.21 元</strong></li>
+<li><strong>總交易筆數</strong>：<strong>65 筆</strong>（不包含資金調撥與轉帳）</li>
+<li><strong>平均每日支出</strong>：<strong>RMB 1,108.37 元 / 天</strong></li>
+</ul>
+<h3>1. 支付工具統計</h3>
+<table>
+<thead>
+<tr>
+<th align="left">支付工具</th>
+<th align="center">支出筆數</th>
+<th align="center">支出總金額 (RMB)</th>
+<th align="center">佔總支出比例</th>
+<th align="left">備註說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>支付寶 (Alipay)</strong></td>
+<td align="center">37 筆</td>
+<td align="center">RMB 4,910.54 元</td>
+<td align="center">73.8%</td>
+<td align="left">主要用於高單價購物、餐飲、滴滴網約車與小吃</td>
+</tr>
+<tr>
+<td align="left"><strong>微信支付 (WeChat Pay)</strong></td>
+<td align="center">28 筆</td>
+<td align="center">RMB 1,739.67 元</td>
+<td align="center">26.2%</td>
+<td align="left">主要用於地鐵車票、景點門票與連鎖餐飲便利商店</td>
+</tr>
+<tr>
+<td align="left"><strong>合計</strong></td>
+<td align="center"><strong>65 筆</strong></td>
+<td align="center"><strong>RMB 6,650.21 元</strong></td>
+<td align="center"><strong>100.0%</strong></td>
+<td align="left">兩大電子支付工具全額彙整</td>
+</tr>
+</tbody></table>
+<h3>2. 類別支出分佈統計</h3>
+<table>
+<thead>
+<tr>
+<th align="left">支出類別</th>
+<th align="center">交易筆數</th>
+<th align="center">總金額 (RMB)</th>
+<th align="center">佔總支出比例</th>
+<th align="left">主要消費內容說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>購物消費</strong></td>
+<td align="center">9 筆</td>
+<td align="center">RMB 3,151.73 元</td>
+<td align="center">47.4%</td>
+<td align="left">非常數碼 3C 配件、銳力運動裝備、Nike 001 旗艦店、大白兔奶糖專賣店</td>
+</tr>
+<tr>
+<td align="left"><strong>餐飲美食</strong></td>
+<td align="center">32 筆</td>
+<td align="center">RMB 2,525.35 元</td>
+<td align="center">38.0%</td>
+<td align="left">茂隆本幫菜、朱家角水鄉農家菜、錦江點心、佳家湯包、潮汕滷味、貝果樹</td>
+</tr>
+<tr>
+<td align="left"><strong>景點門票與娛樂</strong></td>
+<td align="center">3 筆</td>
+<td align="center">RMB 589.00 元</td>
+<td align="center">8.9%</td>
+<td align="left">上海中心大廈 118 層觀光層門票、朱家角古鎮景區門票/手搖船票</td>
+</tr>
+<tr>
+<td align="left"><strong>交通出行</strong></td>
+<td align="center">16 筆</td>
+<td align="center">RMB 352.13 元</td>
+<td align="center">5.3%</td>
+<td align="left">滴滴快車網約車、上海地鐵車票、黃浦江輪渡東金線、高速公路過路費</td>
+</tr>
+<tr>
+<td align="left"><strong>通訊與生活雜項</strong></td>
+<td align="center">5 筆</td>
+<td align="center">RMB 32.00 元</td>
+<td align="center">0.5%</td>
+<td align="left">中國電信話費充值、景區與街邊自動售貨機飲料</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="wix-section-card"><h2>二、 每日消費時間軸明細 (Daily Chronological Expenses)</h2>
+<h3>Day 1：2026/07/19 (星期日) ── 抵達上海與黃河路名店小吃</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 390.00 元</strong>（共 5 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">14:18</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 192.00</td>
+<td align="left"><strong>在地小吃/個人商家支付</strong></td>
+<td align="left">扫收钱码付款-给**文</td>
+</tr>
+<tr>
+<td align="center">18:34</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 157.00</td>
+<td align="left"><strong>佳家湯包（黃河路店）</strong></td>
+<td align="left">上海佳家餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">18:38</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 16.00</td>
+<td align="left"><strong>佳家湯包（黃河路店）</strong></td>
+<td align="left">上海佳家餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">18:41</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 12.00</td>
+<td align="left"><strong>佳家湯包（黃河路店）</strong></td>
+<td align="left">上海佳家餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">19:17</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 13.00</td>
+<td align="left"><strong>小楊生煎（黃河路店）</strong></td>
+<td align="left">小杨生煎（黄河路店）</td>
+</tr>
+</tbody></table>
+<h3>Day 2：2026/07/20 (星期一) ── 靜安寺商圈、上海中心大廈與陸家嘴夜遊</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 1,235.47 元</strong>（共 16 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">09:05</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 55.70</td>
+<td align="left"><strong>BreadTalk 麵包新語</strong></td>
+<td align="left">BreadTalk面包新语</td>
+</tr>
+<tr>
+<td align="center">09:12</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+<tr>
+<td align="center">11:03</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 18.67</td>
+<td align="left"><strong>滴滴快車網約車（網約車）</strong></td>
+<td align="left">滴滴出行</td>
+</tr>
+<tr>
+<td align="center">12:37</td>
+<td align="center">微信支付</td>
+<td align="center">景點門票與娛樂</td>
+<td align="center">RMB 480.00</td>
+<td align="left"><strong>上海中心大廈 118 層觀光層門票</strong></td>
+<td align="left">上海中心</td>
+</tr>
+<tr>
+<td align="center">13:45</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 2.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海公共交通乘车码</td>
+</tr>
+<tr>
+<td align="center">13:45</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 2.00</td>
+<td align="left"><strong>黃浦江輪渡（東金線）</strong></td>
+<td align="left">上海公共交通乘车码</td>
+</tr>
+<tr>
+<td align="center">13:48</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 132.00</td>
+<td align="left"><strong>大食代（板前焰鐵板燒）</strong></td>
+<td align="left">大食代上海</td>
+</tr>
+<tr>
+<td align="center">15:07</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 24.00</td>
+<td align="left"><strong>蒲甜冰淇淋機器人</strong></td>
+<td align="left">蒲甜食品科技（上海）有限公司01</td>
+</tr>
+<tr>
+<td align="center">15:40</td>
+<td align="center">微信支付</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 68.00</td>
+<td align="left"><strong>上海中心大廈 B2F「上海之禮」紀念品店</strong></td>
+<td align="left">上海中心大厦</td>
+</tr>
+<tr>
+<td align="center">16:51</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 25.10</td>
+<td align="left"><strong>7-ELEVEN 便利商店</strong></td>
+<td align="left">沪浙7-ELEVEN</td>
+</tr>
+<tr>
+<td align="center">17:46</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+<tr>
+<td align="center">18:40</td>
+<td align="center">微信支付</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 162.00</td>
+<td align="left"><strong>南京路大白兔奶糖旗艦店</strong></td>
+<td align="left">上海丽新</td>
+</tr>
+<tr>
+<td align="center">19:50</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 164.00</td>
+<td align="left"><strong>潮汕滷味飯·砂鍋粥（新世界新丸中心店）</strong></td>
+<td align="left">上海花之丸餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">20:12</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 6.00</td>
+<td align="left"><strong>潮汕滷味飯·砂鍋粥（新世界新丸中心店）</strong></td>
+<td align="left">上海花之丸餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">21:15</td>
+<td align="center">微信支付</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 69.00</td>
+<td align="left"><strong>POP MART 泡泡瑪特盲盒</strong></td>
+<td align="left">POP MART</td>
+</tr>
+<tr>
+<td align="center">21:32</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+</tbody></table>
+<h3>Day 3：2026/07/21 (星期二) ── 徐家匯美羅城 3C 購物與進賢路茂隆本幫菜</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 1,635.36 元</strong>（共 13 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">09:12</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 52.70</td>
+<td align="left"><strong>BreadTalk 麵包新語</strong></td>
+<td align="left">BreadTalk面包新语</td>
+</tr>
+<tr>
+<td align="center">09:23</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 12.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+<tr>
+<td align="center">12:03</td>
+<td align="center">微信支付</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 5.00</td>
+<td align="left"><strong>中國電信 門號話費充值</strong></td>
+<td align="left">中国电信</td>
+</tr>
+<tr>
+<td align="center">12:32</td>
+<td align="center">微信支付</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 7.00</td>
+<td align="left"><strong>自動售貨機（飲料/雜項）</strong></td>
+<td align="left">无人售货机</td>
+</tr>
+<tr>
+<td align="center">13:09</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 178.00</td>
+<td align="left"><strong>潮汕滷味飯·砂鍋粥（新世界新丸中心店）</strong></td>
+<td align="left">鹅匠·潮汕卤味集市（天钥桥路店）</td>
+</tr>
+<tr>
+<td align="center">15:37</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 1,000.00</td>
+<td align="left"><strong>非常數碼（3C 電腦周邊配件）</strong></td>
+<td align="left">扫收钱码付款-给非常数码</td>
+</tr>
+<tr>
+<td align="center">16:11</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 15.30</td>
+<td align="left"><strong>蜜雪冰城（手搖飲料）</strong></td>
+<td align="left">蜜雪冰城</td>
+</tr>
+<tr>
+<td align="center">16:56</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.96</td>
+<td align="left"><strong>滴滴快車網約車（周师傅）</strong></td>
+<td align="left">滴滴快车打车-周师傅-07月21日行程</td>
+</tr>
+<tr>
+<td align="center">18:28</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 44.40</td>
+<td align="left"><strong>滴滴快車網約車（郑师傅）</strong></td>
+<td align="left">滴滴快车打车-郑师傅-07月21日行程</td>
+</tr>
+<tr>
+<td align="center">18:59</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 254.00</td>
+<td align="left"><strong>茂隆餐廳（進賢路老字號本幫菜）</strong></td>
+<td align="left">扫收钱码付款-给茂隆餐厅</td>
+</tr>
+<tr>
+<td align="center">19:03</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 20.00</td>
+<td align="left"><strong>鄰家便利店</strong></td>
+<td align="left">扫收钱码付款-给邻家便利店</td>
+</tr>
+<tr>
+<td align="center">19:18</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">19:43</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 28.00</td>
+<td align="left"><strong>油梨樹 Avocado Tree（輕食）</strong></td>
+<td align="left">油梨树</td>
+</tr>
+</tbody></table>
+<h3>Day 4：2026/07/22 (星期三) ── 興業太古匯、Nike 001 旗艦店與錦江點心</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 2,576.36 元</strong>（共 17 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">08:53</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 164.00</td>
+<td align="left"><strong>BEIGEL TREE 貝果樹（太古匯店）</strong></td>
+<td align="left">BEIGEL TREE上海太古汇店</td>
+</tr>
+<tr>
+<td align="center">09:30</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">11:21</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 718.94</td>
+<td align="left"><strong>Nike 上海 001 旗艦店（南京東路店）</strong></td>
+<td align="left">耐克商业上海南京东路分店</td>
+</tr>
+<tr>
+<td align="center">12:34</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 150.00</td>
+<td align="left"><strong>上海旅遊品商廈（紀念品/工藝品）</strong></td>
+<td align="left">上海旅游品商厦有限公司</td>
+</tr>
+<tr>
+<td align="center">12:44</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 92.00</td>
+<td align="left"><strong>老上海傳統小吃</strong></td>
+<td align="left">老上海小吃</td>
+</tr>
+<tr>
+<td align="center">12:52</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 68.00</td>
+<td align="left"><strong>老上海傳統小吃</strong></td>
+<td align="left">老上海小吃</td>
+</tr>
+<tr>
+<td align="center">12:55</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 18.00</td>
+<td align="left"><strong>老上海傳統小吃</strong></td>
+<td align="left">老上海小吃</td>
+</tr>
+<tr>
+<td align="center">14:43</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 919.79</td>
+<td align="left"><strong>銳力運動用品（運動裝備）</strong></td>
+<td align="left">上海锐力运动用品有限公司</td>
+</tr>
+<tr>
+<td align="center">15:12</td>
+<td align="center">支付寶</td>
+<td align="center">景點門票與娛樂</td>
+<td align="center">RMB 49.00</td>
+<td align="left"><strong>景點娛樂門票/特色體驗</strong></td>
+<td align="left">隽答(上海)娱乐有限公司</td>
+</tr>
+<tr>
+<td align="center">15:32</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 39.00</td>
+<td align="left"><strong>上海旅遊品商廈（紀念品/工藝品）</strong></td>
+<td align="left">上海旅游品商厦有限公司</td>
+</tr>
+<tr>
+<td align="center">15:43</td>
+<td align="center">支付寶</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 8.00</td>
+<td align="left"><strong>自動售貨機（飲料/雜項）</strong></td>
+<td align="left">自助售卖机</td>
+</tr>
+<tr>
+<td align="center">15:44</td>
+<td align="center">支付寶</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 5.00</td>
+<td align="left"><strong>自動售貨機（飲料/雜項）</strong></td>
+<td align="left">自助售卖机</td>
+</tr>
+<tr>
+<td align="center">16:15</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 196.00</td>
+<td align="left"><strong>錦江國際飯店（外賣傳統點心/伴手禮）</strong></td>
+<td align="left">上海锦江国际饭店有限公司</td>
+</tr>
+<tr>
+<td align="center">16:23</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">18:25</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 68.90</td>
+<td align="left"><strong>阿蘭家蘭州牛肉麵</strong></td>
+<td align="left">阿兰家兰州牛肉面</td>
+</tr>
+<tr>
+<td align="center">18:42</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 26.00</td>
+<td align="left"><strong>阿蘭家蘭州牛肉麵</strong></td>
+<td align="left">阿兰家兰州牛肉面</td>
+</tr>
+<tr>
+<td align="center">19:00</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 35.73</td>
+<td align="left"><strong>7-ELEVEN 便利商店</strong></td>
+<td align="left">7-ELEVEn上海兴业太古汇REDEMPTION</td>
+</tr>
+</tbody></table>
+<h3>Day 5：2026/07/23 (星期四) ── 朱家角古鎮水鄉一日遊與水鄉農家菜</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 705.72 元</strong>（共 12 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">08:46</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 62.20</td>
+<td align="left"><strong>SUBWAY 潛艇堡</strong></td>
+<td align="left">SUBWAY</td>
+</tr>
+<tr>
+<td align="center">10:37</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 16.00</td>
+<td align="left"><strong>高速公路通行過路費</strong></td>
+<td align="left">上海耐特高速公路收费结算有限公司</td>
+</tr>
+<tr>
+<td align="center">10:48</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 148.10</td>
+<td align="left"><strong>滴滴快車網約車（向师傅）</strong></td>
+<td align="left">特惠快车打车-向师傅-07月23日行程</td>
+</tr>
+<tr>
+<td align="center">11:09</td>
+<td align="center">微信支付</td>
+<td align="center">景點門票與娛樂</td>
+<td align="center">RMB 60.00</td>
+<td align="left"><strong>朱家角古鎮景區門票/手搖船票</strong></td>
+<td align="left">20260724092601U44759956236007037</td>
+</tr>
+<tr>
+<td align="center">12:33</td>
+<td align="center">支付寶</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 7.00</td>
+<td align="left"><strong>智慧零售（景區飲料/冰品）</strong></td>
+<td align="left">智慧零售</td>
+</tr>
+<tr>
+<td align="center">13:28</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 230.72</td>
+<td align="left"><strong>上海一角餐飲（朱家角水鄉農家菜）</strong></td>
+<td align="left">上海一角餐饮服务有限公司</td>
+</tr>
+<tr>
+<td align="center">14:12</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 47.90</td>
+<td align="left"><strong>水鄉茶館飲品/特色點心</strong></td>
+<td align="left">订单付款</td>
+</tr>
+<tr>
+<td align="center">16:06</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 25.00</td>
+<td align="left"><strong>朱家角郵局（特色明信片/紀念文創）</strong></td>
+<td align="left">朱家角邮局</td>
+</tr>
+<tr>
+<td align="center">16:36</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 24.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">16:39</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>朱家角地鐵站休閒飲品</strong></td>
+<td align="left">朱家角站店</td>
+</tr>
+<tr>
+<td align="center">18:12</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 36.80</td>
+<td align="left"><strong>街邊特色本幫小吃</strong></td>
+<td align="left">4022597429455-XF</td>
+</tr>
+<tr>
+<td align="center">18:27</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 39.00</td>
+<td align="left"><strong>柳記衢州鴨頭（風味宵夜）</strong></td>
+<td align="left">柳记衢州鸭头</td>
+</tr>
+</tbody></table>
+<h3>Day 6：2026/07/24 (星期五) ── 吳江路麥當勞與前往浦東機場返台</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 107.30 元</strong>（共 2 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">09:26</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 86.30</td>
+<td align="left"><strong>麥當勞＆麥咖啡（吳江路店）</strong></td>
+<td align="left">美团</td>
+</tr>
+<tr>
+<td align="center">11:50</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 21.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="wix-section-card"><h2>三、 非支出性交易紀錄 (Non-Expense Transactions)</h2>
+<p>以下筆數為帳戶間資金調撥或充值紀錄，已自動從實質消費統計中排除：</p>
+<table>
+<thead>
+<tr>
+<th align="center">交易時間</th>
+<th align="center">支付工具</th>
+<th align="center">交易類型</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">交易說明</th>
+<th align="left">資金來源 / 管道</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2026-07-21 19:49:49</td>
+<td align="center">支付寶</td>
+<td align="center">不計收支 (轉帳/充值)</td>
+<td align="center">RMB 370.00</td>
+<td align="left"><strong>余额充值</strong></td>
+<td align="left">富邦华一银行</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="wix-section-card"><h2>四、 財務結算與消費觀察 (Financial Insights)</h2>
+<ol>
+<li><strong>消費結構集中</strong>：購物消費與餐飲美食佔據了總支出的 <strong>85.4%</strong>（購物佔 47.4%、餐飲佔 38.0%），顯示本次行程在品質餐飲與個人購物體驗上比重較高。</li>
+<li><strong>電子支付普及</strong>：全行程無任何現金找零負擔，支付寶與微信支付完全涵蓋所有景點、交通、連鎖商場與街邊小吃。</li>
+<li><strong>交通費用極省</strong>：6 天總交通費用僅 RMB 352.13 元（佔總支出 5.3%），主要得益於地鐵網絡發達以及網約車的高性價比。</li>
+</ol>
+</section>
+      </article>
+
+      <footer>
+        <p>© 2026 上海自駕與科技探索家庭自由行手冊</p>
+        <p style="margin-top: 0.4rem; font-size: 0.75rem; opacity: 0.8;">本手冊專為全家離線與手機閱讀優化編排</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // 手機版選單折疊邏輯
+    const menuBtn = document.getElementById('menuBtn');
+    const navbar = document.getElementById('navbar');
+
+    menuBtn.addEventListener('click', (e) => {
+      navbar.classList.toggle('open');
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (navbar.classList.contains('open') && !navbar.contains(e.target)) {
+        navbar.classList.remove('open');
+      }
+    });
+
+    // 動態為表格加上 data-label 屬性以支援手機端卡片化排版
+    const initResponsiveTables = () => {
+      document.querySelectorAll('table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(tr => {
+          tr.querySelectorAll('td').forEach((td, index) => {
+            if (headers[index]) {
+              td.setAttribute('data-label', headers[index]);
+            }
+          });
+        });
+      });
+    };
+
+    // 前端簡易密碼驗證系統 (保護旅行隱私)
+    const CORRECT_PASSWORD = "0525";
+    const overlay = document.getElementById('passwordOverlay');
+    const pwInput = document.getElementById('pwInput');
+    const pwBtn = document.getElementById('pwBtn');
+    const pwError = document.getElementById('pwError');
+
+    const checkAuth = () => {
+      if (localStorage.getItem('shanghai_guide_auth') === 'true') {
+        overlay.style.display = 'none';
+      } else {
+        overlay.style.display = 'flex';
+      }
+    };
+
+    const handleVerify = () => {
+      if (pwInput.value === CORRECT_PASSWORD) {
+        localStorage.setItem('shanghai_guide_auth', 'true');
+        overlay.style.display = 'none';
+      } else {
+        pwError.style.display = 'block';
+        pwInput.value = '';
+        pwInput.focus();
+      }
+    };
+
+    pwBtn.addEventListener('click', handleVerify);
+    pwInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleVerify();
+    });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initResponsiveTables();
+        checkAuth();
+      });
+    } else {
+      initResponsiveTables();
+      checkAuth();
+    }
+  </script>
+</body>
+</html>

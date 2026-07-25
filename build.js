@@ -8,7 +8,8 @@ const pages = [
   { src: '00-pre-travel-checklist.md', dist: '00-pre-travel-checklist.html', title: '行前檢查與避坑', key: '00' },
   { src: '01-telecom-and-bank.md', dist: '01-telecom-and-bank.html', title: '聯通門號與富邦開戶', key: '01' },
   { src: '02-attraction-guide.md', dist: '02-attraction-guide.html', title: '景點導覽與低步行', key: '02' },
-  { src: '03-itinerary.md', dist: '03-itinerary.html', title: '6天5夜活動行程', key: '03' }
+  { src: '03-itinerary.md', dist: '03-itinerary.html', title: '6天5夜活動行程', key: '03' },
+  { src: '04-expense-summary.md', dist: '04-expense-summary.html', title: '消費明細與財務統計', key: '04' }
 ];
 
 const srcDir = __dirname;

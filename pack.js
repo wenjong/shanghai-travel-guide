@@ -8,7 +8,8 @@ const pages = [
   { key: '00', title: '行前檢查與避坑', src: '00-pre-travel-checklist.md' },
   { key: '01', title: '聯通門號與富邦開戶', src: '01-telecom-and-bank.md' },
   { key: '02', title: '景點導覽與低步行', src: '02-attraction-guide.md' },
-  { key: '03', title: '6天5夜活動行程', src: '03-itinerary.md' }
+  { key: '03', title: '6天5夜活動行程', src: '03-itinerary.md' },
+  { key: '04', title: '消費明細與財務統計', src: '04-expense-summary.md' }
 ];
 
 const srcDir = __dirname;
@@ -25,21 +26,23 @@ if (!fs.existsSync(distDir)) {
 let template = fs.readFileSync(templatePath, 'utf8');
 
 // 2. 改造模板的導航選單 (將常規連結 href 改為 javascript 點擊控制)
-const oldNav = `<nav>
-        <a href="index.html" class="{{nav-index}}">🏠 首頁與基本資訊</a>
-        <a href="00-pre-travel-checklist.html" class="{{nav-00}}">📋 行前檢查與避坑</a>
-        <a href="01-telecom-and-bank.html" class="{{nav-01}}">💳 聯通門號與富邦開戶</a>
-        <a href="02-attraction-guide.html" class="{{nav-02}}">🧭 景點導覽與低步行</a>
-        <a href="03-itinerary.html" class="{{nav-03}}">📅 6天5夜活動行程</a>
-      </nav>`;
+const oldNav = `<nav id="navbar">
+      <a href="index.html" class="{{nav-index}}">🏠 首頁資訊</a>
+      <a href="00-pre-travel-checklist.html" class="{{nav-00}}">📋 行前避坑</a>
+      <a href="01-telecom-and-bank.html" class="{{nav-01}}">💳 門號開戶</a>
+      <a href="02-attraction-guide.html" class="{{nav-02}}">🧭 景點導覽</a>
+      <a href="03-itinerary.html" class="{{nav-03}}">📅 行程細節</a>
+      <a href="04-expense-summary.html" class="{{nav-04}}">💰 消費明細</a>
+    </nav>`;
 
-const newNav = `<nav>
-        <a href="#" onclick="switchPage('index', event)" id="nav-index" class="active">🏠 首頁與基本資訊</a>
-        <a href="#" onclick="switchPage('00', event)" id="nav-00">📋 行前檢查與避坑</a>
-        <a href="#" onclick="switchPage('01', event)" id="nav-01">💳 聯通門號與富邦開戶</a>
-        <a href="#" onclick="switchPage('02', event)" id="nav-02">🧭 景點導覽與低步行</a>
-        <a href="#" onclick="switchPage('03', event)" id="nav-03">📅 6天5夜活動行程</a>
-      </nav>`;
+const newNav = `<nav id="navbar">
+      <a href="#" onclick="switchPage('index', event)" id="nav-index" class="active">🏠 首頁資訊</a>
+      <a href="#" onclick="switchPage('00', event)" id="nav-00">📋 行前避坑</a>
+      <a href="#" onclick="switchPage('01', event)" id="nav-01">💳 門號開戶</a>
+      <a href="#" onclick="switchPage('02', event)" id="nav-02">🧭 景點導覽</a>
+      <a href="#" onclick="switchPage('03', event)" id="nav-03">📅 行程細節</a>
+      <a href="#" onclick="switchPage('04', event)" id="nav-04">💰 消費明細</a>
+    </nav>`;
 
 template = template.replace(oldNav, newNav);
 

@@ -39,3 +39,4 @@
 *   **[01-telecom-and-bank.md](file:///C:/Users/wenjong/gemini/shanghai-travel-guide/01-telecom-and-bank.md)**：手機門號實名制辦理與銀行開戶實戰手冊。
 *   **[02-attraction-guide.md](file:///C:/Users/wenjong/gemini/shanghai-travel-guide/02-attraction-guide.md)**：各熱門景點深度導覽與低步行逛法（含 WAIC 2026 科技展與無人駕駛體驗）。
 *   **[03-itinerary.md](file:///C:/Users/wenjong/gemini/shanghai-travel-guide/03-itinerary.md)**：6 天 5 夜詳細行程時間表（已串接展覽與公休避坑資訊）。
+*   **[04-expense-summary.md](file:///C:/Users/wenjong/gemini/shanghai-travel-guide/04-expense-summary.md)**：上海 6 天 5 夜實質消費明細與財務統計報告（微信支付與支付寶流水全額彙整）。

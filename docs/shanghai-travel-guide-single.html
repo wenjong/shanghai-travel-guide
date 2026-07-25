@@ -469,11 +469,12 @@
     </div>
     <button class="menu-toggle" id="menuBtn">☰</button>
     <nav id="navbar">
-      <a href="index.html" class="">🏠 首頁資訊</a>
-      <a href="00-pre-travel-checklist.html" class="">📋 行前避坑</a>
-      <a href="01-telecom-and-bank.html" class="">💳 門號開戶</a>
-      <a href="02-attraction-guide.html" class="">🧭 景點導覽</a>
-      <a href="03-itinerary.html" class="">📅 行程細節</a>
+      <a href="#" onclick="switchPage('index', event)" id="nav-index" class="active">🏠 首頁資訊</a>
+      <a href="#" onclick="switchPage('00', event)" id="nav-00">📋 行前避坑</a>
+      <a href="#" onclick="switchPage('01', event)" id="nav-01">💳 門號開戶</a>
+      <a href="#" onclick="switchPage('02', event)" id="nav-02">🧭 景點導覽</a>
+      <a href="#" onclick="switchPage('03', event)" id="nav-03">📅 行程細節</a>
+      <a href="#" onclick="switchPage('04', event)" id="nav-04">💰 消費明細</a>
     </nav>
   </header>
 
@@ -547,6 +548,7 @@
 <li><strong><a href="#" onclick="switchPage('01', event)">01-telecom-and-bank.md</a></strong>：手機門號實名制辦理與銀行開戶實戰手冊。</li>
 <li><strong><a href="#" onclick="switchPage('02', event)">02-attraction-guide.md</a></strong>：各熱門景點深度導覽與低步行逛法（含 WAIC 2026 科技展與無人駕駛體驗）。</li>
 <li><strong><a href="#" onclick="switchPage('03', event)">03-itinerary.md</a></strong>：6 天 5 夜詳細行程時間表（已串接展覽與公休避坑資訊）。</li>
+<li><strong><a href="#" onclick="switchPage('04-expense-summary', event)">04-expense-summary.md</a></strong>：上海 6 天 5 夜實質消費明細與財務統計報告（微信支付與支付寶流水全額彙整）。</li>
 </ul>
 </section>
     </div>
@@ -1033,6 +1035,747 @@
 <li><strong>預估本日步數</strong>：約 4000 步。</li>
 </ul>
 </div></div>
+    </div>
+  
+    <div id="content-04" class="page-section" style="display: none;">
+      <h1>上海 6 天 5 夜自由行實質消費明細與財務統計報告</h1>
+<p>本報告根據 <code>expense/</code> 資料夾內導出之微信支付（WeChat Pay）與支付寶（Alipay）交易流水賬單，進行全自動精確彙整、分類與結構化統計。報告統計區間為 <strong>2026 年 7 月 19 日至 2026 年 7 月 24 日</strong>。</p>
+<hr>
+<section class="wix-section-card"><h2>一、 財務總覽 (Financial Summary)</h2>
+<ul>
+<li><strong>總支出金額</strong>：<strong>RMB 6,650.21 元</strong></li>
+<li><strong>總交易筆數</strong>：<strong>65 筆</strong>（不包含資金調撥與轉帳）</li>
+<li><strong>平均每日支出</strong>：<strong>RMB 1,108.37 元 / 天</strong></li>
+</ul>
+<h3>1. 支付工具統計</h3>
+<table>
+<thead>
+<tr>
+<th align="left">支付工具</th>
+<th align="center">支出筆數</th>
+<th align="center">支出總金額 (RMB)</th>
+<th align="center">佔總支出比例</th>
+<th align="left">備註說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>支付寶 (Alipay)</strong></td>
+<td align="center">37 筆</td>
+<td align="center">RMB 4,910.54 元</td>
+<td align="center">73.8%</td>
+<td align="left">主要用於高單價購物、餐飲、滴滴網約車與小吃</td>
+</tr>
+<tr>
+<td align="left"><strong>微信支付 (WeChat Pay)</strong></td>
+<td align="center">28 筆</td>
+<td align="center">RMB 1,739.67 元</td>
+<td align="center">26.2%</td>
+<td align="left">主要用於地鐵車票、景點門票與連鎖餐飲便利商店</td>
+</tr>
+<tr>
+<td align="left"><strong>合計</strong></td>
+<td align="center"><strong>65 筆</strong></td>
+<td align="center"><strong>RMB 6,650.21 元</strong></td>
+<td align="center"><strong>100.0%</strong></td>
+<td align="left">兩大電子支付工具全額彙整</td>
+</tr>
+</tbody></table>
+<h3>2. 類別支出分佈統計</h3>
+<table>
+<thead>
+<tr>
+<th align="left">支出類別</th>
+<th align="center">交易筆數</th>
+<th align="center">總金額 (RMB)</th>
+<th align="center">佔總支出比例</th>
+<th align="left">主要消費內容說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>購物消費</strong></td>
+<td align="center">9 筆</td>
+<td align="center">RMB 3,151.73 元</td>
+<td align="center">47.4%</td>
+<td align="left">非常數碼 3C 配件、銳力運動裝備、Nike 001 旗艦店、大白兔奶糖專賣店</td>
+</tr>
+<tr>
+<td align="left"><strong>餐飲美食</strong></td>
+<td align="center">32 筆</td>
+<td align="center">RMB 2,525.35 元</td>
+<td align="center">38.0%</td>
+<td align="left">茂隆本幫菜、朱家角水鄉農家菜、錦江點心、佳家湯包、潮汕滷味、貝果樹</td>
+</tr>
+<tr>
+<td align="left"><strong>景點門票與娛樂</strong></td>
+<td align="center">3 筆</td>
+<td align="center">RMB 589.00 元</td>
+<td align="center">8.9%</td>
+<td align="left">上海中心大廈 118 層觀光層門票、朱家角古鎮景區門票/手搖船票</td>
+</tr>
+<tr>
+<td align="left"><strong>交通出行</strong></td>
+<td align="center">16 筆</td>
+<td align="center">RMB 352.13 元</td>
+<td align="center">5.3%</td>
+<td align="left">滴滴快車網約車、上海地鐵車票、黃浦江輪渡東金線、高速公路過路費</td>
+</tr>
+<tr>
+<td align="left"><strong>通訊與生活雜項</strong></td>
+<td align="center">5 筆</td>
+<td align="center">RMB 32.00 元</td>
+<td align="center">0.5%</td>
+<td align="left">中國電信話費充值、景區與街邊自動售貨機飲料</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="wix-section-card"><h2>二、 每日消費時間軸明細 (Daily Chronological Expenses)</h2>
+<h3>Day 1：2026/07/19 (星期日) ── 抵達上海與黃河路名店小吃</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 390.00 元</strong>（共 5 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">14:18</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 192.00</td>
+<td align="left"><strong>在地小吃/個人商家支付</strong></td>
+<td align="left">扫收钱码付款-给**文</td>
+</tr>
+<tr>
+<td align="center">18:34</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 157.00</td>
+<td align="left"><strong>佳家湯包（黃河路店）</strong></td>
+<td align="left">上海佳家餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">18:38</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 16.00</td>
+<td align="left"><strong>佳家湯包（黃河路店）</strong></td>
+<td align="left">上海佳家餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">18:41</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 12.00</td>
+<td align="left"><strong>佳家湯包（黃河路店）</strong></td>
+<td align="left">上海佳家餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">19:17</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 13.00</td>
+<td align="left"><strong>小楊生煎（黃河路店）</strong></td>
+<td align="left">小杨生煎（黄河路店）</td>
+</tr>
+</tbody></table>
+<h3>Day 2：2026/07/20 (星期一) ── 靜安寺商圈、上海中心大廈與陸家嘴夜遊</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 1,235.47 元</strong>（共 16 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">09:05</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 55.70</td>
+<td align="left"><strong>BreadTalk 麵包新語</strong></td>
+<td align="left">BreadTalk面包新语</td>
+</tr>
+<tr>
+<td align="center">09:12</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+<tr>
+<td align="center">11:03</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 18.67</td>
+<td align="left"><strong>滴滴快車網約車（網約車）</strong></td>
+<td align="left">滴滴出行</td>
+</tr>
+<tr>
+<td align="center">12:37</td>
+<td align="center">微信支付</td>
+<td align="center">景點門票與娛樂</td>
+<td align="center">RMB 480.00</td>
+<td align="left"><strong>上海中心大廈 118 層觀光層門票</strong></td>
+<td align="left">上海中心</td>
+</tr>
+<tr>
+<td align="center">13:45</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 2.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海公共交通乘车码</td>
+</tr>
+<tr>
+<td align="center">13:45</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 2.00</td>
+<td align="left"><strong>黃浦江輪渡（東金線）</strong></td>
+<td align="left">上海公共交通乘车码</td>
+</tr>
+<tr>
+<td align="center">13:48</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 132.00</td>
+<td align="left"><strong>大食代（板前焰鐵板燒）</strong></td>
+<td align="left">大食代上海</td>
+</tr>
+<tr>
+<td align="center">15:07</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 24.00</td>
+<td align="left"><strong>蒲甜冰淇淋機器人</strong></td>
+<td align="left">蒲甜食品科技（上海）有限公司01</td>
+</tr>
+<tr>
+<td align="center">15:40</td>
+<td align="center">微信支付</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 68.00</td>
+<td align="left"><strong>上海中心大廈 B2F「上海之禮」紀念品店</strong></td>
+<td align="left">上海中心大厦</td>
+</tr>
+<tr>
+<td align="center">16:51</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 25.10</td>
+<td align="left"><strong>7-ELEVEN 便利商店</strong></td>
+<td align="left">沪浙7-ELEVEN</td>
+</tr>
+<tr>
+<td align="center">17:46</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+<tr>
+<td align="center">18:40</td>
+<td align="center">微信支付</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 162.00</td>
+<td align="left"><strong>南京路大白兔奶糖旗艦店</strong></td>
+<td align="left">上海丽新</td>
+</tr>
+<tr>
+<td align="center">19:50</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 164.00</td>
+<td align="left"><strong>潮汕滷味飯·砂鍋粥（新世界新丸中心店）</strong></td>
+<td align="left">上海花之丸餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">20:12</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 6.00</td>
+<td align="left"><strong>潮汕滷味飯·砂鍋粥（新世界新丸中心店）</strong></td>
+<td align="left">上海花之丸餐饮管理有限公司</td>
+</tr>
+<tr>
+<td align="center">21:15</td>
+<td align="center">微信支付</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 69.00</td>
+<td align="left"><strong>POP MART 泡泡瑪特盲盒</strong></td>
+<td align="left">POP MART</td>
+</tr>
+<tr>
+<td align="center">21:32</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+</tbody></table>
+<h3>Day 3：2026/07/21 (星期二) ── 徐家匯美羅城 3C 購物與進賢路茂隆本幫菜</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 1,635.36 元</strong>（共 13 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">09:12</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 52.70</td>
+<td align="left"><strong>BreadTalk 麵包新語</strong></td>
+<td align="left">BreadTalk面包新语</td>
+</tr>
+<tr>
+<td align="center">09:23</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 12.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+<tr>
+<td align="center">12:03</td>
+<td align="center">微信支付</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 5.00</td>
+<td align="left"><strong>中國電信 門號話費充值</strong></td>
+<td align="left">中国电信</td>
+</tr>
+<tr>
+<td align="center">12:32</td>
+<td align="center">微信支付</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 7.00</td>
+<td align="left"><strong>自動售貨機（飲料/雜項）</strong></td>
+<td align="left">无人售货机</td>
+</tr>
+<tr>
+<td align="center">13:09</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 178.00</td>
+<td align="left"><strong>潮汕滷味飯·砂鍋粥（新世界新丸中心店）</strong></td>
+<td align="left">鹅匠·潮汕卤味集市（天钥桥路店）</td>
+</tr>
+<tr>
+<td align="center">15:37</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 1,000.00</td>
+<td align="left"><strong>非常數碼（3C 電腦周邊配件）</strong></td>
+<td align="left">扫收钱码付款-给非常数码</td>
+</tr>
+<tr>
+<td align="center">16:11</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 15.30</td>
+<td align="left"><strong>蜜雪冰城（手搖飲料）</strong></td>
+<td align="left">蜜雪冰城</td>
+</tr>
+<tr>
+<td align="center">16:56</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.96</td>
+<td align="left"><strong>滴滴快車網約車（周师傅）</strong></td>
+<td align="left">滴滴快车打车-周师傅-07月21日行程</td>
+</tr>
+<tr>
+<td align="center">18:28</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 44.40</td>
+<td align="left"><strong>滴滴快車網約車（郑师傅）</strong></td>
+<td align="left">滴滴快车打车-郑师傅-07月21日行程</td>
+</tr>
+<tr>
+<td align="center">18:59</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 254.00</td>
+<td align="left"><strong>茂隆餐廳（進賢路老字號本幫菜）</strong></td>
+<td align="left">扫收钱码付款-给茂隆餐厅</td>
+</tr>
+<tr>
+<td align="center">19:03</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 20.00</td>
+<td align="left"><strong>鄰家便利店</strong></td>
+<td align="left">扫收钱码付款-给邻家便利店</td>
+</tr>
+<tr>
+<td align="center">19:18</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">19:43</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 28.00</td>
+<td align="left"><strong>油梨樹 Avocado Tree（輕食）</strong></td>
+<td align="left">油梨树</td>
+</tr>
+</tbody></table>
+<h3>Day 4：2026/07/22 (星期三) ── 興業太古匯、Nike 001 旗艦店與錦江點心</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 2,576.36 元</strong>（共 17 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">08:53</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 164.00</td>
+<td align="left"><strong>BEIGEL TREE 貝果樹（太古匯店）</strong></td>
+<td align="left">BEIGEL TREE上海太古汇店</td>
+</tr>
+<tr>
+<td align="center">09:30</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">11:21</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 718.94</td>
+<td align="left"><strong>Nike 上海 001 旗艦店（南京東路店）</strong></td>
+<td align="left">耐克商业上海南京东路分店</td>
+</tr>
+<tr>
+<td align="center">12:34</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 150.00</td>
+<td align="left"><strong>上海旅遊品商廈（紀念品/工藝品）</strong></td>
+<td align="left">上海旅游品商厦有限公司</td>
+</tr>
+<tr>
+<td align="center">12:44</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 92.00</td>
+<td align="left"><strong>老上海傳統小吃</strong></td>
+<td align="left">老上海小吃</td>
+</tr>
+<tr>
+<td align="center">12:52</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 68.00</td>
+<td align="left"><strong>老上海傳統小吃</strong></td>
+<td align="left">老上海小吃</td>
+</tr>
+<tr>
+<td align="center">12:55</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 18.00</td>
+<td align="left"><strong>老上海傳統小吃</strong></td>
+<td align="left">老上海小吃</td>
+</tr>
+<tr>
+<td align="center">14:43</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 919.79</td>
+<td align="left"><strong>銳力運動用品（運動裝備）</strong></td>
+<td align="left">上海锐力运动用品有限公司</td>
+</tr>
+<tr>
+<td align="center">15:12</td>
+<td align="center">支付寶</td>
+<td align="center">景點門票與娛樂</td>
+<td align="center">RMB 49.00</td>
+<td align="left"><strong>景點娛樂門票/特色體驗</strong></td>
+<td align="left">隽答(上海)娱乐有限公司</td>
+</tr>
+<tr>
+<td align="center">15:32</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 39.00</td>
+<td align="left"><strong>上海旅遊品商廈（紀念品/工藝品）</strong></td>
+<td align="left">上海旅游品商厦有限公司</td>
+</tr>
+<tr>
+<td align="center">15:43</td>
+<td align="center">支付寶</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 8.00</td>
+<td align="left"><strong>自動售貨機（飲料/雜項）</strong></td>
+<td align="left">自助售卖机</td>
+</tr>
+<tr>
+<td align="center">15:44</td>
+<td align="center">支付寶</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 5.00</td>
+<td align="left"><strong>自動售貨機（飲料/雜項）</strong></td>
+<td align="left">自助售卖机</td>
+</tr>
+<tr>
+<td align="center">16:15</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 196.00</td>
+<td align="left"><strong>錦江國際飯店（外賣傳統點心/伴手禮）</strong></td>
+<td align="left">上海锦江国际饭店有限公司</td>
+</tr>
+<tr>
+<td align="center">16:23</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">18:25</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 68.90</td>
+<td align="left"><strong>阿蘭家蘭州牛肉麵</strong></td>
+<td align="left">阿兰家兰州牛肉面</td>
+</tr>
+<tr>
+<td align="center">18:42</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 26.00</td>
+<td align="left"><strong>阿蘭家蘭州牛肉麵</strong></td>
+<td align="left">阿兰家兰州牛肉面</td>
+</tr>
+<tr>
+<td align="center">19:00</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 35.73</td>
+<td align="left"><strong>7-ELEVEN 便利商店</strong></td>
+<td align="left">7-ELEVEn上海兴业太古汇REDEMPTION</td>
+</tr>
+</tbody></table>
+<h3>Day 5：2026/07/23 (星期四) ── 朱家角古鎮水鄉一日遊與水鄉農家菜</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 705.72 元</strong>（共 12 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">08:46</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 62.20</td>
+<td align="left"><strong>SUBWAY 潛艇堡</strong></td>
+<td align="left">SUBWAY</td>
+</tr>
+<tr>
+<td align="center">10:37</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 16.00</td>
+<td align="left"><strong>高速公路通行過路費</strong></td>
+<td align="left">上海耐特高速公路收费结算有限公司</td>
+</tr>
+<tr>
+<td align="center">10:48</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 148.10</td>
+<td align="left"><strong>滴滴快車網約車（向师傅）</strong></td>
+<td align="left">特惠快车打车-向师傅-07月23日行程</td>
+</tr>
+<tr>
+<td align="center">11:09</td>
+<td align="center">微信支付</td>
+<td align="center">景點門票與娛樂</td>
+<td align="center">RMB 60.00</td>
+<td align="left"><strong>朱家角古鎮景區門票/手搖船票</strong></td>
+<td align="left">20260724092601U44759956236007037</td>
+</tr>
+<tr>
+<td align="center">12:33</td>
+<td align="center">支付寶</td>
+<td align="center">通訊與生活雜項</td>
+<td align="center">RMB 7.00</td>
+<td align="left"><strong>智慧零售（景區飲料/冰品）</strong></td>
+<td align="left">智慧零售</td>
+</tr>
+<tr>
+<td align="center">13:28</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 230.72</td>
+<td align="left"><strong>上海一角餐飲（朱家角水鄉農家菜）</strong></td>
+<td align="left">上海一角餐饮服务有限公司</td>
+</tr>
+<tr>
+<td align="center">14:12</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 47.90</td>
+<td align="left"><strong>水鄉茶館飲品/特色點心</strong></td>
+<td align="left">订单付款</td>
+</tr>
+<tr>
+<td align="center">16:06</td>
+<td align="center">支付寶</td>
+<td align="center">購物消費</td>
+<td align="center">RMB 25.00</td>
+<td align="left"><strong>朱家角郵局（特色明信片/紀念文創）</strong></td>
+<td align="left">朱家角邮局</td>
+</tr>
+<tr>
+<td align="center">16:36</td>
+<td align="center">支付寶</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 24.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">TVM购票</td>
+</tr>
+<tr>
+<td align="center">16:39</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 9.00</td>
+<td align="left"><strong>朱家角地鐵站休閒飲品</strong></td>
+<td align="left">朱家角站店</td>
+</tr>
+<tr>
+<td align="center">18:12</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 36.80</td>
+<td align="left"><strong>街邊特色本幫小吃</strong></td>
+<td align="left">4022597429455-XF</td>
+</tr>
+<tr>
+<td align="center">18:27</td>
+<td align="center">支付寶</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 39.00</td>
+<td align="left"><strong>柳記衢州鴨頭（風味宵夜）</strong></td>
+<td align="left">柳记衢州鸭头</td>
+</tr>
+</tbody></table>
+<h3>Day 6：2026/07/24 (星期五) ── 吳江路麥當勞與前往浦東機場返台</h3>
+<ul>
+<li><strong>當日支出小計</strong>：<strong>RMB 107.30 元</strong>（共 2 筆）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">時間</th>
+<th align="center">支付工具</th>
+<th align="center">支出類別</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">消費項目 / 商家名稱</th>
+<th align="left">原始交易對方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">09:26</td>
+<td align="center">微信支付</td>
+<td align="center">餐飲美食</td>
+<td align="center">RMB 86.30</td>
+<td align="left"><strong>麥當勞＆麥咖啡（吳江路店）</strong></td>
+<td align="left">美团</td>
+</tr>
+<tr>
+<td align="center">11:50</td>
+<td align="center">微信支付</td>
+<td align="center">交通出行</td>
+<td align="center">RMB 21.00</td>
+<td align="left"><strong>上海地鐵 車票</strong></td>
+<td align="left">上海地铁</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="wix-section-card"><h2>三、 非支出性交易紀錄 (Non-Expense Transactions)</h2>
+<p>以下筆數為帳戶間資金調撥或充值紀錄，已自動從實質消費統計中排除：</p>
+<table>
+<thead>
+<tr>
+<th align="center">交易時間</th>
+<th align="center">支付工具</th>
+<th align="center">交易類型</th>
+<th align="center">金額 (RMB)</th>
+<th align="left">交易說明</th>
+<th align="left">資金來源 / 管道</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2026-07-21 19:49:49</td>
+<td align="center">支付寶</td>
+<td align="center">不計收支 (轉帳/充值)</td>
+<td align="center">RMB 370.00</td>
+<td align="left"><strong>余额充值</strong></td>
+<td align="left">富邦华一银行</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="wix-section-card"><h2>四、 財務結算與消費觀察 (Financial Insights)</h2>
+<ol>
+<li><strong>消費結構集中</strong>：購物消費與餐飲美食佔據了總支出的 <strong>85.4%</strong>（購物佔 47.4%、餐飲佔 38.0%），顯示本次行程在品質餐飲與個人購物體驗上比重較高。</li>
+<li><strong>電子支付普及</strong>：全行程無任何現金找零負擔，支付寶與微信支付完全涵蓋所有景點、交通、連鎖商場與街邊小吃。</li>
+<li><strong>交通費用極省</strong>：6 天總交通費用僅 RMB 352.13 元（佔總支出 5.3%），主要得益於地鐵網絡發達以及網約車的高性價比。</li>
+</ol>
+</section>
     </div>
   
       </article>
